@@ -9,6 +9,6 @@ namespace ibagchaal
     {
         void registerObserver(IObserver o);
         void removeObserver(IObserver o);
-        void nofityObservers(String notiFicationType);
+        void notifyObservers(String notiFicationType);
     }
 }

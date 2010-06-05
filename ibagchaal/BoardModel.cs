@@ -20,9 +20,9 @@ namespace ibagchaal
             board = new int[5, 5];
             for (int i = 0; i < 5; i++)
             {
-                for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
                 {
-                    board[i, j] = 0;
+                    board[i,j] = 0;
                 }
             }
 
@@ -43,7 +43,7 @@ namespace ibagchaal
             else
             {
                 board[i, j] = GOAT;
-                if (checkGameOver)
+                if (checkGameOver())
                     notifyObservers(Notifications.GAME_OVER);
                 else
                     notifyObservers(Notifications.GOAT_PLACED);
@@ -70,12 +70,12 @@ namespace ibagchaal
 
         public bool checkGameOver()
         {
-
+            return false;
 
         }
         
 
-        public static bool isPositionOccupied(int i, int j)
+        public  bool isPositionOccupied(int i, int j)
         {
             if (board[i, j] == EMPTY)
             {
