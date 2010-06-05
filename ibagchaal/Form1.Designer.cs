@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(910, 491);
+            this.ClientSize = new System.Drawing.Size(1073, 549);
             this.Name = "Form1";
             this.Text = "iBagChaal";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
