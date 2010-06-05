@@ -23,8 +23,11 @@ namespace ibagchaal
         {
             g = e.Graphics;
             boardView = new BoardView(g);
-            boardView.PositionBoard = new Point(300, 100);
-            boardView.drawBoard(800, 600, Color.Black, 3);
+            Rectangle rect=SystemInformation.VirtualScreen;
+            boardView.ScreenSize = new Point(rect.Right,rect.Bottom);
+            boardView.calculateBoardPosition();
+            boardView.drawBoard(Color.Black, 3);
+            
         }
 
         private Graphics g;         //to get graphics handler of this form that has already been created automatically.

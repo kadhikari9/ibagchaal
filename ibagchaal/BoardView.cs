@@ -9,7 +9,7 @@ namespace ibagchaal
     {
         public BoardView(Graphics grp)
         {
-            graphics = grp;                   //setting the graphics object to the graphics object of the form where the board will be created
+            graphics = grp;                         //setting the graphics object to the graphics object of the form where the board will be created
             boardPosition = new Point(0, 0);        //setting the initial position to (0,0)
         }
 
@@ -19,13 +19,22 @@ namespace ibagchaal
             {
                 return boardPosition;
             }
+            
+        }
+        public Point ScreenSize
+        {
             set
             {
-                boardPosition = value;
+                screenSize = value;
             }
         }
 
-        public void drawBoard(int width, int height, Color color, float penwidth)
+        public void calculateBoardPosition()
+        {
+            boardPosition.X = screenSize.X / 2 - width / 2;
+            boardPosition.Y = screenSize.Y / 2 - height / 2;
+        }
+        public void drawBoard(Color color, float penwidth)
         {
             boardColor = color;
             penWidth = penwidth;
@@ -48,8 +57,11 @@ namespace ibagchaal
 
             }
         }
+        private static int width = 600;
+        private static int height = 600;
         private Graphics graphics;
         private Point boardPosition;                //the board position's point(x,y)
+        private Point screenSize;
         private Color boardColor;                   //board's boarder color
         private float penWidth;                       // how wide the line we want
     }
