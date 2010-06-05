@@ -12,12 +12,15 @@ namespace ibagchaal
            
             //initialize the position of tigers;
             resetBoard();
-
+            
         }
 
         public void resetBoard()
         {
-            board = new int[5, 5];
+            board = new int[boardSize, boardSize];
+            tigers = new Tiger[4];
+            goats = new Goat[20];
+
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -25,12 +28,15 @@ namespace ibagchaal
                     board[i,j] = 0;
                 }
             }
-
             
             board[0, 0] = TIGER;
             board[4, 4] = TIGER;
             board[0, 4] = TIGER;
             board[4, 0] = TIGER;
+            tigers[0].setPos(0, 0);
+            tigers[1].setPos(4, 4);
+            tigers[2].setPos(0, 4);
+            tigers[3].setPos(4, 0);
             boardViews = new System.Collections.ArrayList();
         }
 
@@ -70,7 +76,11 @@ namespace ibagchaal
 
         public bool checkGameOver()
         {
-            return false;
+            for (int i = 0; i < 4; i++)
+            {
+
+            }
+            return true;
 
         }
         
@@ -113,6 +123,8 @@ namespace ibagchaal
         public static int TIGER = -1;
         public static int GOAT = 1;
         public static int EMPTY = 0;
+        public Tiger[] tigers;
+        public Goat[] goats;
 
     }
  

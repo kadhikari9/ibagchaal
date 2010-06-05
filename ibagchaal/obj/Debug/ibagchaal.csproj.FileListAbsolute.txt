@@ -12,3 +12,5 @@ E:\KUSU\Projects\C sharp\IBagchal\ibagchaal\obj\Debug\ResolveAssemblyReference.c
 E:\KUSU\Projects\C sharp\IBagchal\ibagchaal\obj\Debug\ibagchaal.Form1.resources
 E:\KUSU\Projects\C sharp\IBagchal\ibagchaal\obj\Debug\ibagchaal.Properties.Resources.resources
 E:\KUSU\Projects\C sharp\IBagchal\ibagchaal\obj\Debug\ibagchaal.csproj.GenerateResource.Cache
+E:\KUSU\Projects\C sharp\IBagchal\ibagchaal\bin\Debug\ibagchaal.exe
+E:\KUSU\Projects\C sharp\IBagchal\ibagchaal\bin\Debug\ibagchaal.pdb
