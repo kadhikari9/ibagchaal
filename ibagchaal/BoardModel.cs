@@ -23,31 +23,34 @@ namespace ibagchaal
 
             for (int i = 0; i < 5; i++)
             {
+               
                 for (int j = 0; j < 5; j++)
                 {
                     board[i,j] = 0;
                 }
             }
-            
+            tigers[0] = new Tiger(0, 0, this);
+            tigers[1] = new Tiger(0, 4, this);
+            tigers[2] = new Tiger(4, 0, this);
+            tigers[3] = new Tiger(4, 4, this);
             board[0, 0] = TIGER;
             board[4, 4] = TIGER;
             board[0, 4] = TIGER;
             board[4, 0] = TIGER;
-            tigers[0].setPos(0, 0);
-            tigers[1].setPos(4, 4);
-            tigers[2].setPos(0, 4);
-            tigers[3].setPos(4, 0);
+            
             boardViews = new System.Collections.ArrayList();
         }
 
         public void placeGoat(int i, int j)
         {
+           
             if (isPositionOccupied(i, j))
             {
                 notifyObservers(Notifications.ILLEGAL_MOVE);
             }
             else
             {
+                goats[goatCount++] = new Goat(i, j, this);
                 board[i, j] = GOAT;
                 if (checkGameOver())
                     notifyObservers(Notifications.GAME_OVER);
@@ -56,21 +59,73 @@ namespace ibagchaal
             }
         }
 
-        public void moveTiger(int i, int j, int k, int l)
+        public void moveTiger(Tiger t, int k, int l)
+        {
+            if (isPositionOccupied(k, l))
+            {
+                notifyObservers(Notifications.ILLEGAL_MOVE);
+            }
+            else if (!checkMove(t.getXPos, t.getYPos, k, l))
+            {
+                notifyObservers(Notifications.ILLEGAL_MOVE);
+            }
+            else
+            {
+                board[t.getXPos, t.getYPos] = 0;
+                board[k, l] = t.getTag() ;
+                t.setPos(k, l);
+                notifyObservers(Notifications.TIGER_MOVED);
+            }
+                
+        }
+
+        public bool checkMove(int i, int j, int k, int l)
+        {
+            if (i + 1 == k && j = l)
+                return true;
+            else if (i - 1 == k && j = l)
+                return true;
+            else if(i+1==k&& j+1==k)
+                return true;
+            else if(i+1==k && j-1==k)
+                return true;
+            else if (i  == k && j = l+1)
+                return true;
+            else if (i  == k && j-1 = l)
+                return true;
+            else if (i - 1 == k && j + 1 == l)
+                return true;
+            else if (i - 1 == k && j - 1 == l)
+                return true;
+            else
+                return false;
+
+
+        }
+
+        public void captureGoat(Tiger t, Goat g)
         {
 
 
         }
 
-        public void captureGoat(int i, int j, int k, int l)
+        public void moveGoat(Goat g, int k, int l)
         {
-
-
-        }
-
-        public void moveGoat(int i, int j, int k, int l)
-        {
-
+            if (isPositionOccupied(k, l))
+            {
+                notifyObservers(Notifications.ILLEGAL_MOVE);
+            }
+            else if (!checkMove(g.getXPos, g.getYPos, k, l))
+            {
+                notifyObservers(Notifications.ILLEGAL_MOVE);
+            }
+            else
+            {
+                board[g.getXPos, g.getYPos] = 0;
+                board[k, l] = t.getTag();
+                g.setPos(k, l);
+                notifyObservers(Notifications.GOAT_MOVED);
+            }
 
         }
 
@@ -78,7 +133,8 @@ namespace ibagchaal
         {
             for (int i = 0; i < 4; i++)
             {
-
+                if (!tigers[i].isBlocked)
+                    return false;
             }
             return true;
 
@@ -87,10 +143,17 @@ namespace ibagchaal
 
         public  bool isPositionOccupied(int i, int j)
         {
-            if (board[i, j] == EMPTY)
+            if (i < 0 || j < 0||i>4 ||j>4) 
+            {
+                return true;
+
+            }
+            else if (board[i, j] == EMPTY)
             {
                 return false;
             }
+
+
             else
                 return true;
         }
@@ -119,12 +182,15 @@ namespace ibagchaal
 
         private System.Collections.ArrayList boardViews;
         private int[,] board;
+        private int goatCount = 0;
+        private int remainingGoats = 20;
         private static int boardSize = 5;
         public static int TIGER = -1;
         public static int GOAT = 1;
         public static int EMPTY = 0;
         public Tiger[] tigers;
         public Goat[] goats;
+
 
     }
  
