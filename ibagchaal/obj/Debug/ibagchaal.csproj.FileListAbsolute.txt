@@ -1,0 +1,8 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchaal\ibagchaal\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchaal\ibagchaal\obj\Debug\ibagchaal.Form1.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchaal\ibagchaal\obj\Debug\ibagchaal.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchaal\ibagchaal\obj\Debug\ibagchaal.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchaal\ibagchaal\bin\Debug\ibagchaal.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchaal\ibagchaal\bin\Debug\ibagchaal.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchaal\ibagchaal\obj\Debug\ibagchaal.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchaal\ibagchaal\obj\Debug\ibagchaal.pdb
