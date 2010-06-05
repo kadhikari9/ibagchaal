@@ -19,7 +19,7 @@ namespace ibagchaal
         {
             board = new int[boardSize, boardSize];
             tigers = new Tiger[4];
-            goats = new Goat[20];
+            goats = new System.Collections.ArrayList();
 
             for (int i = 0; i < 5; i++)
             {
@@ -41,25 +41,32 @@ namespace ibagchaal
             boardViews = new System.Collections.ArrayList();
         }
 
-        public void placeGoat(int i, int j)
+        public void placeGoat(int i, int j) //place goat on specified board position
         {
-           
-            if (isPositionOccupied(i, j))
+            if (remainingGoats == 0)
+            {
+                notifyObservers(Notifications.ALL_GOATS_PLACED);
+            }
+
+            else if (isPositionOccupied(i, j))
             {
                 notifyObservers(Notifications.ILLEGAL_MOVE);
             }
             else
             {
-                goats[goatCount++] = new Goat(i, j, this);
+                Goat newgoat = new Goat(i, j, this);
+                goats.Add(newgoat);
                 board[i, j] = GOAT;
-                if (checkGameOver())
-                    notifyObservers(Notifications.GAME_OVER);
+                goatCount++;
+                remainingGoats--;
+                if (checkGameOver()==1)
+                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN);
                 else
                     notifyObservers(Notifications.GOAT_PLACED);
             }
         }
 
-        public void moveTiger(Tiger t, int k, int l)
+        public void moveTiger(Tiger t, int k, int l) //move tiger into the postion
         {
             if (isPositionOccupied(k, l))
             {
@@ -79,7 +86,7 @@ namespace ibagchaal
                 
         }
 
-        public bool checkMove(int i, int j, int k, int l)
+        public bool checkMove(int i, int j, int k, int l) //check legal moves
         {
             if (i + 1 == k && j = l)
                 return true;
@@ -102,11 +109,33 @@ namespace ibagchaal
 
 
         }
+        //capture goat g from tiger t x,y are final positon of tigers
+        //hint: use getGoatAt(x,y) to get a goat at the specified postion
 
-        public void captureGoat(Tiger t, Goat g)
+        public void captureGoat(Tiger t, Goat g,int x,int y) 
         {
+            if (!checkMove(t.getXPos, t.getYPos, g.getXPos, g.getYPos))
+            {
+                notifyObservers(Notifications.ILLEGAL_MOVE);
+            }
+
+            else if (board[x, y] != EMPTY)
+            {
+                notifyObservers(Notifications.ILLEGAL_MOVE);
+            }
 
 
+            else
+            {
+                goatCount--;
+                goats.Remove(g);
+                if (checkGameOver() == -1)
+                {
+                    notifyObservers(Notifications.GAME_OVER_TIGER_WIN);
+                }
+                else 
+                    notifyObservers(Notifications.GOAT_CAPTURED);
+            }
         }
 
         public void moveGoat(Goat g, int k, int l)
@@ -124,19 +153,29 @@ namespace ibagchaal
                 board[g.getXPos, g.getYPos] = 0;
                 board[k, l] = t.getTag();
                 g.setPos(k, l);
-                notifyObservers(Notifications.GOAT_MOVED);
+                if(checkGameOver()==1)
+                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN);
+             //   else if (checkGameOver() == -1)
+               // {
+               //     notifyObservers(Notifications.GAME_OVER_TIGER_WIN);
+              //  }
+                else
+                    notifyObservers(Notifications.GOAT_MOVED);
             }
 
         }
 
-        public bool checkGameOver()
+        public int checkGameOver() // checks if game has been over.
         {
+            if (goatsCaptured > 5)
+                return 1; //goat win
             for (int i = 0; i < 4; i++)
             {
                 if (!tigers[i].isBlocked)
-                    return false;
+                    return -1; //tiger win
             }
-            return true;
+
+            return 0; //draw
 
         }
         
@@ -179,8 +218,31 @@ namespace ibagchaal
             }
         }
 
+        public Tiger getTigerAt(int x, int y)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Tiger currentTiger=tigers[i];
+                if (currentTiger.getXPos == x && currentTiger.getYPos == y)
+                    return currentTiger;
+            }
+            return false;
+        }
+
+        public Goat getGoatAt(int x, int y)
+        {
+            for (int i = 0; i < goatCount; i++)
+            {
+                Goat currentGoat = goats[i];
+                if (currentGoat.getXPos == x && currentGoat.getYPos == y)
+                    return currentGoat;
+            }
+            return false;
+        }
+
 
         private System.Collections.ArrayList boardViews;
+        private System.Collections.ArrayList goats;
         private int[,] board;
         private int goatCount = 0;
         private int remainingGoats = 20;
@@ -189,8 +251,7 @@ namespace ibagchaal
         public static int GOAT = 1;
         public static int EMPTY = 0;
         public Tiger[] tigers;
-        public Goat[] goats;
-
+        public int goatsCaptured = 0;
 
     }
  
