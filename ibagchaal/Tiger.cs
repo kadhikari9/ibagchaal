@@ -7,16 +7,19 @@ namespace ibagchaal
 {
     class Tiger
     {
-        public Tiger(int xP, int yP)
+        private BoardModel myParent;
+
+        public Tiger(int xP, int yP, BoardModel parent)
         {
             xP = xPos;
             yP = yPos;
+            myParent = parent;
         }
 
         public bool isBlocked(int[,] board)
         {
-            if (BoardModel.isPositionOccupied(xPos - 1, yPos - 1) || BoardModel.isPositionOccupied(xPos + 1, yPos + 1) ||
-                BoardModel.isPositionOccupied(xPos, yPos - 1) || BoardModel.isPositionOccupied(xPos + 1, yPos + 1))
+            if (myParent.isPositionOccupied(xPos - 1, yPos - 1) || myParent.isPositionOccupied(xPos + 1, yPos + 1) ||
+                myParent.isPositionOccupied(xPos, yPos - 1) || myParent.isPositionOccupied(xPos + 1, yPos + 1))
                 return true;
             else
                 return false;
