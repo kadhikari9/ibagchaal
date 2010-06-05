@@ -38,6 +38,15 @@ namespace ibagchaal
                 graphics.DrawLine(boardDrawPen, boardPosition.X + i * (width / 4), boardPosition.Y, boardPosition.X + i * (width / 4), boardPosition.Y + height);
             }
 
+            graphics.DrawLine(boardDrawPen, boardPosition.X, boardPosition.Y, boardPosition.X + width, boardPosition.Y + height);
+            graphics.DrawLine(boardDrawPen, boardPosition.X + width, boardPosition.Y, boardPosition.X, boardPosition.Y + height);
+
+            for (int i = 0; i < 2; i++)
+            {
+                graphics.DrawLine(boardDrawPen, boardPosition.X, boardPosition.Y + (height / 2), boardPosition.X + (width / 2), boardPosition.Y + (height * i));
+                graphics.DrawLine(boardDrawPen, boardPosition.X + width, boardPosition.Y + (height / 2), boardPosition.X + (width / 2), boardPosition.Y + (height * i));
+
+            }
         }
         private Graphics graphics;
         private Point boardPosition;                //the board position's point(x,y)
