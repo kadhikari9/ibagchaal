@@ -9,6 +9,7 @@ namespace ibagchaal
     {
         protected int xPos, yPos;
         protected BoardModel myParent;
+        protected int playerTag;
 
         public Player(int xP, int yP, BoardModel parent)
         {
@@ -34,6 +35,6 @@ namespace ibagchaal
         }
 
  
-        public virtual int getMyId();
+        public virtual int getTag();
     }
 }

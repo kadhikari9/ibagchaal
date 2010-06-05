@@ -8,9 +8,12 @@ namespace ibagchaal
     class Tiger:Player
     {
       
+        private static int tigerId=0;
+        private int myId;
         public Tiger(int xP, int yP, BoardModel parent)
         {
             Player(xP, yP, parent);
+            myId = tigerId++;
         }
 
         public bool isBlocked(int[,] board)
@@ -23,9 +26,13 @@ namespace ibagchaal
                 return false;
 
         }
-
-
         public int getMyId()
+        {
+            return myId;
+        }
+
+
+        public int getTag()
         {
             return BoardModel.TIGER;
         }
