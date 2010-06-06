@@ -11,10 +11,9 @@ namespace ibagchaal
         private static int goatId = 0;
         private int myId;
 
-        public Goat(int xp, int yp, BoardModel mod)
+        public Goat(int xp, int yp, BoardModel mod):base(xp,yp,mod)
         {
 
-            Player(xp, yp, BoardModel);
             myId = goatId++;
         }
 
