@@ -34,7 +34,10 @@ namespace ibagchaal
             xPos = yp;
         }
 
- 
-        public virtual int getTag();
+
+        public virtual int getTag()
+        {
+            return 0;
+        }
     }
 }

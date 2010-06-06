@@ -10,9 +10,9 @@ namespace ibagchaal
       
         private static int tigerId=0;
         private int myId;
-        public Tiger(int xP, int yP, BoardModel parent)
+        public Tiger(int xP, int yP, BoardModel parent): base(xP, yP, parent)
         {
-            Player(xP, yP, parent);
+            
             myId = tigerId++;
         }
 

@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Resources;
+using System.Reflection;
 
 namespace ibagchaal
 {
@@ -17,6 +19,7 @@ namespace ibagchaal
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
             this.TopMost = true;
+            
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -27,7 +30,8 @@ namespace ibagchaal
             boardView.ScreenSize = new Point(rect.Right,rect.Bottom);
             boardView.calculateBoardPosition();
             boardView.drawBoard(Color.Black, 3);
-            
+            boardView.placeTiger(450, 150);
+            boardView.placeGoat(600, 150);
         }
 
         private Graphics g;         //to get graphics handler of this form that has already been created automatically.

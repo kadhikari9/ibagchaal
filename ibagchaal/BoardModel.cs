@@ -72,13 +72,13 @@ namespace ibagchaal
             {
                 notifyObservers(Notifications.ILLEGAL_MOVE);
             }
-            else if (!checkMove(t.getXPos, t.getYPos, k, l))
+            else if (!checkMove(t.getXPos(), t.getYPos(), k, l))
             {
                 notifyObservers(Notifications.ILLEGAL_MOVE);
             }
             else
             {
-                board[t.getXPos, t.getYPos] = 0;
+                board[t.getXPos(), t.getYPos()] = 0;
                 board[k, l] = t.getTag() ;
                 t.setPos(k, l);
                 notifyObservers(Notifications.TIGER_MOVED);
@@ -88,17 +88,17 @@ namespace ibagchaal
 
         public bool checkMove(int i, int j, int k, int l) //check legal moves
         {
-            if (i + 1 == k && j = l)
+            if (i + 1 == k && j == l)
                 return true;
-            else if (i - 1 == k && j = l)
+            else if (i - 1 == k && j == l)
                 return true;
             else if(i+1==k&& j+1==k)
                 return true;
             else if(i+1==k && j-1==k)
                 return true;
-            else if (i  == k && j = l+1)
+            else if (i  == k && j == l+1)
                 return true;
-            else if (i  == k && j-1 = l)
+            else if (i  == k && j-1 == l)
                 return true;
             else if (i - 1 == k && j + 1 == l)
                 return true;
@@ -114,7 +114,7 @@ namespace ibagchaal
 
         public void captureGoat(Tiger t, Goat g,int x,int y) 
         {
-            if (!checkMove(t.getXPos, t.getYPos, g.getXPos, g.getYPos))
+            if (!checkMove(t.getXPos(), t.getYPos(), g.getXPos(), g.getYPos()))
             {
                 notifyObservers(Notifications.ILLEGAL_MOVE);
             }
@@ -144,14 +144,14 @@ namespace ibagchaal
             {
                 notifyObservers(Notifications.ILLEGAL_MOVE);
             }
-            else if (!checkMove(g.getXPos, g.getYPos, k, l))
+            else if (!checkMove(g.getXPos(), g.getYPos(), k, l))
             {
                 notifyObservers(Notifications.ILLEGAL_MOVE);
             }
             else
             {
-                board[g.getXPos, g.getYPos] = 0;
-                board[k, l] = t.getTag();
+                board[g.getXPos(), g.getYPos()] = 0;
+                board[k, l] = g.getTag();
                 g.setPos(k, l);
                 if(checkGameOver()==1)
                     notifyObservers(Notifications.GAME_OVER_GOAT_WIN);
@@ -171,7 +171,7 @@ namespace ibagchaal
                 return 1; //goat win
             for (int i = 0; i < 4; i++)
             {
-                if (!tigers[i].isBlocked)
+                if (!tigers[i].isBlocked(board))
                     return -1; //tiger win
             }
 
@@ -223,21 +223,21 @@ namespace ibagchaal
             for (int i = 0; i < 5; i++)
             {
                 Tiger currentTiger=tigers[i];
-                if (currentTiger.getXPos == x && currentTiger.getYPos == y)
+                if (currentTiger.getXPos() == x && currentTiger.getYPos() == y)
                     return currentTiger;
             }
-            return false;
+            return null;
         }
 
         public Goat getGoatAt(int x, int y)
         {
             for (int i = 0; i < goatCount; i++)
             {
-                Goat currentGoat = goats[i];
-                if (currentGoat.getXPos == x && currentGoat.getYPos == y)
+                Goat currentGoat = (Goat)goats[i];
+                if (currentGoat.getXPos() == x && currentGoat.getYPos() == y)
                     return currentGoat;
             }
-            return false;
+            return null;
         }
 
 
