@@ -45,12 +45,12 @@ namespace ibagchaal
         {
             if (remainingGoats == 0)
             {
-                notifyObservers(Notifications.ALL_GOATS_PLACED,this);
+                notifyObservers(Notifications.ALL_GOATS_PLACED);
             }
 
             else if (isPositionOccupied(i, j))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE,this);
+                notifyObservers(Notifications.ILLEGAL_MOVE);
             }
             else
             {
@@ -60,9 +60,9 @@ namespace ibagchaal
                 goatCount++;
                 remainingGoats--;
                 if (checkGameOver()==1)
-                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN,this);
+                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN);
                 else
-                    notifyObservers(Notifications.GOAT_PLACED,this);
+                    notifyObservers(Notifications.GOAT_PLACED);
             }
         }
 
@@ -70,18 +70,18 @@ namespace ibagchaal
         {
             if (isPositionOccupied(k, l))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE,this);
+                notifyObservers(Notifications.ILLEGAL_MOVE);
             }
             else if (!checkMove(t.getXPos(), t.getYPos(), k, l))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE,this);
+                notifyObservers(Notifications.ILLEGAL_MOVE);
             }
             else
             {
                 board[t.getXPos(), t.getYPos()] = 0;
                 board[k, l] = t.getTag() ;
                 t.setPos(k, l);
-                notifyObservers(Notifications.TIGER_MOVED,this);
+                notifyObservers(Notifications.TIGER_MOVED);
             }
                 
         }
@@ -116,12 +116,12 @@ namespace ibagchaal
         {
             if (!checkMove(t.getXPos(), t.getYPos(), g.getXPos(), g.getYPos()))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE,this);
+                notifyObservers(Notifications.ILLEGAL_MOVE);
             }
 
             else if (board[x, y] != EMPTY)
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE,this);
+                notifyObservers(Notifications.ILLEGAL_MOVE);
             }
 
 
@@ -131,10 +131,10 @@ namespace ibagchaal
                 goats.Remove(g);
                 if (checkGameOver() == -1)
                 {
-                    notifyObservers(Notifications.GAME_OVER_TIGER_WIN,this);
+                    notifyObservers(Notifications.GAME_OVER_TIGER_WIN);
                 }
                 else 
-                    notifyObservers(Notifications.GOAT_CAPTURED,this);
+                    notifyObservers(Notifications.GOAT_CAPTURED);
             }
         }
 
@@ -142,11 +142,11 @@ namespace ibagchaal
         {
             if (isPositionOccupied(k, l))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE,this);
+                notifyObservers(Notifications.ILLEGAL_MOVE);
             }
             else if (!checkMove(g.getXPos(), g.getYPos(), k, l))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE,this);
+                notifyObservers(Notifications.ILLEGAL_MOVE);
             }
             else
             {
@@ -154,13 +154,13 @@ namespace ibagchaal
                 board[k, l] = g.getTag();
                 g.setPos(k, l);
                 if(checkGameOver()==1)
-                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN,this);
+                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN);
              //   else if (checkGameOver() == -1)
                // {
                //     notifyObservers(Notifications.GAME_OVER_TIGER_WIN);
               //  }
                 else
-                    notifyObservers(Notifications.GOAT_MOVED,this);
+                    notifyObservers(Notifications.GOAT_MOVED);
             }
 
         }

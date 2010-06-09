@@ -32,7 +32,7 @@ namespace ibagchaal
         }
 
 
-        public int getTag()
+       override public int getTag()
         {
             return BoardModel.TIGER;
         }
