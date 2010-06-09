@@ -87,9 +87,10 @@ namespace ibagchaal
             graphics.DrawImage(goatBitmap, new Rectangle(xP - imageWidth / 2, yP - imageHeight / 2, imageWidth, imageHeight));
         }
         
-        public void update(String type)
+        public void update(String type,Object boardModel)
         {
-            
+            BoardModel boardMod = BoardModel as BoardModel;
+            //do change in view according to model
         }
         private Bitmap tigerBitmap;
         private Bitmap goatBitmap;
