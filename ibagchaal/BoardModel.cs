@@ -45,12 +45,12 @@ namespace ibagchaal
         {
             if (remainingGoats == 0)
             {
-                notifyObservers(Notifications.ALL_GOATS_PLACED);
+                notifyObservers(Notifications.ALL_GOATS_PLACED,this);
             }
 
             else if (isPositionOccupied(i, j))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE);
+                notifyObservers(Notifications.ILLEGAL_MOVE,this);
             }
             else
             {
@@ -60,9 +60,9 @@ namespace ibagchaal
                 goatCount++;
                 remainingGoats--;
                 if (checkGameOver()==1)
-                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN);
+                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN,this);
                 else
-                    notifyObservers(Notifications.GOAT_PLACED);
+                    notifyObservers(Notifications.GOAT_PLACED,this);
             }
         }
 
@@ -70,18 +70,18 @@ namespace ibagchaal
         {
             if (isPositionOccupied(k, l))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE);
+                notifyObservers(Notifications.ILLEGAL_MOVE,this);
             }
             else if (!checkMove(t.getXPos(), t.getYPos(), k, l))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE);
+                notifyObservers(Notifications.ILLEGAL_MOVE,this);
             }
             else
             {
                 board[t.getXPos(), t.getYPos()] = 0;
                 board[k, l] = t.getTag() ;
                 t.setPos(k, l);
-                notifyObservers(Notifications.TIGER_MOVED);
+                notifyObservers(Notifications.TIGER_MOVED,this);
             }
                 
         }
@@ -116,12 +116,12 @@ namespace ibagchaal
         {
             if (!checkMove(t.getXPos(), t.getYPos(), g.getXPos(), g.getYPos()))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE);
+                notifyObservers(Notifications.ILLEGAL_MOVE,this);
             }
 
             else if (board[x, y] != EMPTY)
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE);
+                notifyObservers(Notifications.ILLEGAL_MOVE,this);
             }
 
 
@@ -131,10 +131,10 @@ namespace ibagchaal
                 goats.Remove(g);
                 if (checkGameOver() == -1)
                 {
-                    notifyObservers(Notifications.GAME_OVER_TIGER_WIN);
+                    notifyObservers(Notifications.GAME_OVER_TIGER_WIN,this);
                 }
                 else 
-                    notifyObservers(Notifications.GOAT_CAPTURED);
+                    notifyObservers(Notifications.GOAT_CAPTURED,this);
             }
         }
 
@@ -142,11 +142,11 @@ namespace ibagchaal
         {
             if (isPositionOccupied(k, l))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE);
+                notifyObservers(Notifications.ILLEGAL_MOVE,this);
             }
             else if (!checkMove(g.getXPos(), g.getYPos(), k, l))
             {
-                notifyObservers(Notifications.ILLEGAL_MOVE);
+                notifyObservers(Notifications.ILLEGAL_MOVE,this);
             }
             else
             {
@@ -154,13 +154,13 @@ namespace ibagchaal
                 board[k, l] = g.getTag();
                 g.setPos(k, l);
                 if(checkGameOver()==1)
-                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN);
+                    notifyObservers(Notifications.GAME_OVER_GOAT_WIN,this);
              //   else if (checkGameOver() == -1)
                // {
                //     notifyObservers(Notifications.GAME_OVER_TIGER_WIN);
               //  }
                 else
-                    notifyObservers(Notifications.GOAT_MOVED);
+                    notifyObservers(Notifications.GOAT_MOVED,this);
             }
 
         }
@@ -214,7 +214,7 @@ namespace ibagchaal
             for (int i = 0; i < boardViews.Count; i++)
             {
                 IObserver curr = boardViews[i] as IObserver;
-                curr.update(notificationType);
+                curr.update(notificationType,this);
             }
         }
 
@@ -240,6 +240,11 @@ namespace ibagchaal
             return null;
         }
 
+        public int[] getboard()
+        {
+            return null;
+            //make this to return board;
+        }
 
         private System.Collections.ArrayList boardViews;
         private System.Collections.ArrayList goats;
