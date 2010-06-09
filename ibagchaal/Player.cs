@@ -9,12 +9,12 @@ namespace ibagchaal
     {
         protected int xPos, yPos;
         protected BoardModel myParent;
-        protected int playerTag;
+       
 
         public Player(int xP, int yP, BoardModel parent)
         {
-            xP = xPos;
-            yP = yPos;
+             xPos=xP;
+            yPos=yP;
             myParent = parent;
         }
 
@@ -39,5 +39,6 @@ namespace ibagchaal
         {
             return 0;
         }
+       
     }
 }

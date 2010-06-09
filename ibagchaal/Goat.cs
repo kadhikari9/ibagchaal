@@ -7,7 +7,7 @@ namespace ibagchaal
 {
     class Goat: Player
     {
-        private BoardModel myParent;
+      
         private static int goatId = 0;
         private int myId;
 
@@ -15,9 +15,10 @@ namespace ibagchaal
         {
 
             myId = goatId++;
+            myParent = mod;
         }
 
-        public int getTag()
+       override public int getTag()
         {
             return BoardModel.GOAT;
         }

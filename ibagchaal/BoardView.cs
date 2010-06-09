@@ -89,7 +89,7 @@ namespace ibagchaal
         
         public void update(String type,Object boardModel)
         {
-            BoardModel boardMod = BoardModel as BoardModel;
+          //  BoardModel boardMod = BoardModel as BoardModel;
             //do change in view according to model
         }
         private Bitmap tigerBitmap;
