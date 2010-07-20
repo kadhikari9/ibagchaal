@@ -68,30 +68,71 @@ namespace ibagchaal
 
         public void placeCursor(int xP, int yP)
         {
-            
+            xP = boardPosition.X + xP * (width / 4);
+            yP = boardPosition.Y + yP * (height / 4);
             Pen drawCursorPen = new Pen(Color.Blue, 4);
-            graphics.DrawRectangle(drawCursorPen, xP - cursorWidth / 2, yP - cursorHeight / 2, cursorWidth, cursorHeight);
+            try
+            {
+                graphics.DrawRectangle(drawCursorPen, xP - (cursorWidth / 2), yP - (cursorHeight / 2), cursorWidth, cursorHeight);    
+            }
+            catch (ArgumentException argException)
+            {
+
+            }
+            
         }
         
         public void placeTiger(int xP,int yP)
         {
-            
-            graphics.DrawImage(tigerBitmap, new Rectangle(xP - imageWidth / 2, yP - imageHeight / 2, imageWidth, imageHeight));
-
+            try
+            {
+                graphics.DrawImage(tigerBitmap, new Rectangle(xP - (imageWidth / 2), yP - (imageHeight / 2), imageWidth, imageHeight));
+            }
+            catch (ArgumentException argException)
+            {
+               
+            }
         }
         
         public void placeGoat(int xP, int yP)
         {
+            try
+            {
+                graphics.DrawImage(goatBitmap, new Rectangle(xP - (imageWidth / 2), yP - (imageHeight / 2), imageWidth, imageHeight));
+            }
+            catch (ArgumentException argException)
+            {
 
-           
-            graphics.DrawImage(goatBitmap, new Rectangle(xP - imageWidth / 2, yP - imageHeight / 2, imageWidth, imageHeight));
+            }         
+            
         }
-        
+        public void getBoard()
+        {
+            int X, Y;
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    X = boardPosition.X + i * (width / 4);
+                    Y = boardPosition.Y + j * (height / 4);
+                    if (board[i, j] == BoardModel.GOAT) placeGoat(X, Y);
+                    else if (board[i, j] == BoardModel.TIGER) placeTiger(X, Y);
+                }
+            }
+        }
+
         public void update(String type,Object boardModel)
         {
-          //  BoardModel boardMod = BoardModel as BoardModel;
+            BoardModel boardMod = boardModel as BoardModel;
             //do change in view according to model
+            
+            if (type.Equals(Notifications.GOAT_MOVED))
+            {
+                board = boardMod.getboard();
+                
+            }        
         }
+        private int[,] board;
         private Bitmap tigerBitmap;
         private Bitmap goatBitmap;
         private static int imageWidth = 120;

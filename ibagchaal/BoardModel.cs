@@ -240,12 +240,14 @@ namespace ibagchaal
             return null;
         }
 
-        public int[] getboard()
+        public int[,] getboard()
         {
-            return null;
-            //make this to return board;
+            return board;
         }
-
+        public int returnPlayer()
+        {
+            return turn;
+        }
         private System.Collections.ArrayList boardViews;
         private System.Collections.ArrayList goats;
         private int[,] board;
@@ -257,7 +259,9 @@ namespace ibagchaal
         public static int EMPTY = 0;
         public Tiger[] tigers;
         public int goatsCaptured = 0;
-
+        public static int OPPONENT = TIGER;
+        public static int PLAYER = GOAT;
+        private int turn=GOAT;
     }
  
 

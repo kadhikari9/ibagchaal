@@ -18,23 +18,110 @@ namespace ibagchaal
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             this.FormBorderStyle = FormBorderStyle.None;
-            this.TopMost = true;
-            
+           // this.TopMost = true;
+            boardModel = new BoardModel();
+            cursorPosX = 0;
+            cursorPosY = 0;
+
+            g = this.CreateGraphics();
+            boardView = new BoardView(g);
+            Rectangle rect = SystemInformation.VirtualScreen;
+            boardView.ScreenSize = new Point(rect.Right, rect.Bottom);
+            boardView.calculateBoardPosition();
+            boardModel.registerObserver(boardView);
+            boardModel.notifyObservers(Notifications.GOAT_MOVED);
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            g = e.Graphics;
-            boardView = new BoardView(g);
-            Rectangle rect=SystemInformation.VirtualScreen;
-            boardView.ScreenSize = new Point(rect.Right,rect.Bottom);
-            boardView.calculateBoardPosition();
+            boardView.placeCursor(cursorPosX, cursorPosY);
             boardView.drawBoard(Color.Black, 3);
-            boardView.placeTiger(450, 150);
-            boardView.placeGoat(600, 150);
+            boardView.getBoard();   
         }
-
+        
         private Graphics g;         //to get graphics handler of this form that has already been created automatically.
         private BoardView boardView;
+        private BoardModel boardModel;
+        private int cursorPosX;
+        private int cursorPosY;
+        public static int PICKED = 1;
+        public static int PLACED = 0;
+        private int state = PLACED;
+        private Tiger selectedTiger;
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (boardModel.returnPlayer() != BoardModel.OPPONENT)
+            {
+                if (e.KeyCode == Keys.Left)
+                {
+                    if (cursorPosX != 0)
+                    {
+                        cursorPosX--;
+                        
+
+                    }
+                }
+                else if (e.KeyCode == Keys.Right)
+                {
+                    if (cursorPosX != 4)
+                    {
+                        cursorPosX++;
+                    }
+                }
+                else if (e.KeyCode == Keys.Up)
+                {
+                    if (cursorPosY != 0)
+                    {
+                        cursorPosY--;
+                    }
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    if (cursorPosY != 4)
+                    {
+                        cursorPosY++;
+                    }
+                }
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    if (boardModel.returnPlayer() == BoardModel.TIGER)
+                    {
+                        if (state == PLACED)
+                        {
+                            if (boardModel.getTigerAt(cursorPosX, cursorPosY) != null)
+                            {
+                                selectedTiger = boardModel.getTigerAt(cursorPosX, cursorPosY);
+                                state = PICKED;
+                            }
+                            else
+                            {
+                                //some error message signifying wrong thing picked
+                            }
+                        }
+
+                        else if (state == PICKED)
+                        {
+                            boardModel.moveTiger(selectedTiger, cursorPosX, cursorPosY);
+                            state = PLACED;
+                        }
+                    }
+
+                    else if (boardModel.returnPlayer() == BoardModel.GOAT)
+                    {
+                        //work remaining here...a lot actually....
+                        boardModel.placeGoat(cursorPosX, cursorPosY);
+                    }
+                }
+                else if (e.KeyCode == Keys.Escape)
+                {
+                    this.Close();
+                }
+                
+                
+            }
+
+            this.Invalidate();       
+        }
     }
 }
