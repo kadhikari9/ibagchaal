@@ -48,7 +48,8 @@ namespace ibagchaal
         public static int PLACED = 0;
         private int state = PLACED;
         private Tiger selectedTiger;
-
+        private Goat selectedGoat;
+        private int count = 0;
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (boardModel.returnPlayer() != BoardModel.OPPONENT)
@@ -110,7 +111,31 @@ namespace ibagchaal
                     else if (boardModel.returnPlayer() == BoardModel.GOAT)
                     {
                         //work remaining here...a lot actually....
-                        boardModel.placeGoat(cursorPosX, cursorPosY);
+                        if (count < 20)
+                        {
+                            boardModel.placeGoat(cursorPosX, cursorPosY);
+                            count++;
+                        }
+                        else
+                        {
+                            if (state == PLACED)
+                            {
+                                if (boardModel.getGoatAt(cursorPosX, cursorPosY) != null)
+                                {
+                                    selectedGoat = boardModel.getGoatAt(cursorPosX, cursorPosY);
+                                    state = PICKED;
+                                }
+                                else
+                                {
+                                    //some error message signifying wrong picked up
+                                }
+                            }
+                            else if (state == PICKED)
+                            {
+                                boardModel.moveGoat(selectedGoat, cursorPosX, cursorPosY);
+                                state = PLACED;
+                            }
+                        }
                     }
                 }
                 else if (e.KeyCode == Keys.Escape)
