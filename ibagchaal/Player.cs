@@ -31,7 +31,7 @@ namespace ibagchaal
         public void setPos(int xp,int yp)
         {
             xPos = xp;
-            xPos = yp;
+            yPos = yp;
         }
 
 

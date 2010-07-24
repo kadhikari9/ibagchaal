@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardModel.cs" />
+    <Compile Include="Boardposition.cs" />
     <Compile Include="BoardView.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

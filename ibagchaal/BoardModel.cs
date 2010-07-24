@@ -59,6 +59,7 @@ namespace ibagchaal
                 board[i, j] = GOAT;
                 goatCount++;
                 remainingGoats--;
+                turn = -(turn);
                 if (checkGameOver()==1)
                     notifyObservers(Notifications.GAME_OVER_GOAT_WIN);
                 else
@@ -81,6 +82,7 @@ namespace ibagchaal
                 board[t.getXPos(), t.getYPos()] = 0;
                 board[k, l] = t.getTag() ;
                 t.setPos(k, l);
+                turn = -(turn);
                 notifyObservers(Notifications.TIGER_MOVED);
             }
                 
@@ -92,20 +94,69 @@ namespace ibagchaal
                 return true;
             else if (i - 1 == k && j == l)
                 return true;
-            else if(i+1==k&& j+1==k)
-                return true;
-            else if(i+1==k && j-1==k)
-                return true;
-            else if (i  == k && j == l+1)
-                return true;
             else if (i  == k && j-1 == l)
                 return true;
-            else if (i - 1 == k && j + 1 == l)
+            else if (i  == k && j+1 == l)
                 return true;
-            else if (i - 1 == k && j - 1 == l)
-                return true;
-            else
-                return false;
+            if ((i + j) % 2 == 0)
+            {
+                if (i + 1 == k && j + 1 == l)
+                    return true;
+                else if (i + 1 == k && j - 1 == l)
+                    return true;
+                else if (i - 1 == k && j + 1 == l)
+                    return true;
+                else if (i - 1 == k && j - 1 == l)
+                    return true;
+            }
+            if (turn == TIGER)
+            {
+                if (i + 2 == k && j == l && board[i + 1, j] == BoardModel.GOAT)
+                {
+                    captureGoat(getTigerAt(i, j), getGoatAt(i + 1, j), k, l);
+                    return true;
+                }
+                else if (i - 2 == k && j == l && board[i - 1, j] == BoardModel.GOAT)
+                {
+                    captureGoat(getTigerAt(i, j), getGoatAt(i - 1, j), k, l);
+                    return true;
+                }
+                else if (i == k && j - 2 == l && board[i, j - 1] == BoardModel.GOAT)
+                {
+                    captureGoat(getTigerAt(i, j), getGoatAt(i , j-1), k, l);
+                    return true;
+                }
+                else if (i == k && j + 2 == l && board[i, j + 1] == BoardModel.GOAT)
+                {
+                    captureGoat(getTigerAt(i, j), getGoatAt(i , j+1), k, l);
+                    return true;
+                }
+                if ((i + j) % 2 == 0)
+                {
+                    if (i + 2 == k && j + 2 == l && board[i + 1, j + 1] == BoardModel.GOAT)
+                    {
+                        captureGoat(getTigerAt(i, j), getGoatAt(i + 1, j+1), k, l);
+                        return true;
+                    }
+                    else if (i + 2 == k && j - 2 == l && board[i + 1, j - 1] == BoardModel.GOAT)
+                    {
+                        captureGoat(getTigerAt(i, j), getGoatAt(i + 1, j-1), k, l);
+                        return true;
+                    }
+                    else if (i - 2 == k && j + 2 == l && board[i - 1, j + 1] == BoardModel.GOAT)
+                    {
+                        captureGoat(getTigerAt(i, j), getGoatAt(i - 1, j+1), k, l);
+                        return true;
+                    }
+                    else if (i - 2 == k && j - 2 == l && board[i - 1, j - 1] == BoardModel.GOAT)
+                    {
+                        captureGoat(getTigerAt(i, j), getGoatAt(i - 1, j-1), k, l);
+                        return true;
+                    }
+                }                
+            }
+
+            return false;
 
 
         }
@@ -128,6 +179,7 @@ namespace ibagchaal
             else
             {
                 goatCount--;
+                board[g.getXPos(), g.getYPos()] = 0;
                 goats.Remove(g);
                 if (checkGameOver() == -1)
                 {
@@ -153,6 +205,7 @@ namespace ibagchaal
                 board[g.getXPos(), g.getYPos()] = 0;
                 board[k, l] = g.getTag();
                 g.setPos(k, l);
+                turn = -(turn);
                 if(checkGameOver()==1)
                     notifyObservers(Notifications.GAME_OVER_GOAT_WIN);
              //   else if (checkGameOver() == -1)
@@ -220,15 +273,17 @@ namespace ibagchaal
 
         public Tiger getTigerAt(int x, int y)
         {
-            for (int i = 0; i < 5; i++)
+            
+            for (int i = 0; i < 4; i++)
             {
                 Tiger currentTiger=tigers[i];
                 if (currentTiger.getXPos() == x && currentTiger.getYPos() == y)
-                    return currentTiger;
+                    return currentTiger;    
             }
             return null;
+                
         }
-
+        
         public Goat getGoatAt(int x, int y)
         {
             for (int i = 0; i < goatCount; i++)
@@ -259,9 +314,9 @@ namespace ibagchaal
         public static int EMPTY = 0;
         public Tiger[] tigers;
         public int goatsCaptured = 0;
-        public static int OPPONENT = TIGER;
-        public static int PLAYER = GOAT;
-        private int turn=GOAT;
+        public static int OPPONENT = GOAT;
+        public static int PLAYER = TIGER;
+        private int turn=TIGER;
     }
  
 
