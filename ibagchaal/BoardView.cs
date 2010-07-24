@@ -126,7 +126,7 @@ namespace ibagchaal
             BoardModel boardMod = boardModel as BoardModel;
             //do change in view according to model
             
-            if (type.Equals(Notifications.GOAT_MOVED))
+            if (type.Equals(Notifications.GOAT_MOVED) || type.Equals(Notifications.TIGER_MOVED))
             {
                 board = boardMod.getboard();
                 
