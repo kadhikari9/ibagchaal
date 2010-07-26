@@ -38,6 +38,7 @@ namespace ibagchaal
                                     BoardModel temp = boardModel;
                                     temp.moveTiger(tigers[k], i, j);
                                     Boardposition newPosition = new Boardposition(-(turn), mode, temp);
+                                    newPosition.Depth = depth++;
                                     nextPosition.Add(newPosition);
                                     numMoves++;
                                 }
@@ -51,6 +52,7 @@ namespace ibagchaal
                                 BoardModel temp = boardModel;
                                 temp.placeGoat(i, j);
                                 Boardposition newPosition = new Boardposition(-(turn), mode, temp);
+                                newPosition.Depth = depth++;
                                 nextPosition.Add(newPosition);
                                 numMoves++;
                             }
@@ -62,7 +64,9 @@ namespace ibagchaal
                                     {
                                         BoardModel temp = boardModel;
                                         temp.moveGoat(newgoat, i, j);
-                                        Boardposition newPostition = new Boardposition(-(turn), mode, temp);
+                                        Boardposition newPosition = new Boardposition(-(turn), mode, temp);
+                                        newPosition.Depth = depth++;
+                                        nextPosition.Add(newPosition);
                                         numMoves++;
                                     }
                                 }
@@ -72,14 +76,27 @@ namespace ibagchaal
                 }
             }
         }
+        public int Utility
+        {
+            set { utility = value; }
+            get { return utility; }
+        }
+
+        public int Depth
+        {
+            get { return depth; }
+            set { depth = value; }
+        }
+        private int utility;
+        private int depth;
         private Tiger[] tigers;
         private Goat[] goats;
-        private BoardModel boardModel;
+        public BoardModel boardModel;
         private int turn;
         private int mode;
         private int[,] board;
         private int numMoves;
-        private System.Collections.ArrayList nextPosition;
+        public System.Collections.ArrayList nextPosition;
 
     }
 }
