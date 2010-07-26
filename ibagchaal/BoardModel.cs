@@ -316,7 +316,7 @@ namespace ibagchaal
         public int goatsCaptured = 0;
         public static int OPPONENT = GOAT;
         public static int PLAYER = TIGER;
-        private int turn=TIGER;
+        private int turn=GOAT;
     }
  
 
