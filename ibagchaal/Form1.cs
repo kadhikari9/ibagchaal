@@ -31,7 +31,8 @@ namespace ibagchaal
             boardView.calculateBoardPosition();
             boardModel.registerObserver(boardView);
             boardModel.notifyObservers(Notifications.GOAT_MOVED);
-
+            boardPosition = new Boardposition();
+            minMaxSearch = new MinMax();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -52,104 +53,117 @@ namespace ibagchaal
         private Tiger selectedTiger;
         private Goat selectedGoat;
         private int count = 0;
-
+        private Boardposition boardPosition;
+        private MinMax minMaxSearch;
+        private static int PLACEMENT = 0;
+        private static int SLIDING = 1;
+        private int mode = PLACEMENT;
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            //      if (boardModel.returnPlayer() != BoardModel.OPPONENT)
-            //    {
-            if (e.KeyCode == Keys.Left)
+            if (boardModel.returnPlayer() != BoardModel.OPPONENT)
             {
-                if (cursorPosX != 0)
+                if (e.KeyCode == Keys.Left)
                 {
-                    cursorPosX--;
-
-
-                }
-            }
-            else if (e.KeyCode == Keys.Right)
-            {
-                if (cursorPosX != 4)
-                {
-                    cursorPosX++;
-                }
-            }
-            else if (e.KeyCode == Keys.Up)
-            {
-                if (cursorPosY != 0)
-                {
-                    cursorPosY--;
-                }
-            }
-            else if (e.KeyCode == Keys.Down)
-            {
-                if (cursorPosY != 4)
-                {
-                    cursorPosY++;
-                }
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                if (boardModel.returnPlayer() == BoardModel.TIGER)
-                {
-                    if (state == PLACED)
+                    if (cursorPosX != 0)
                     {
-                        if (boardModel.getTigerAt(cursorPosX, cursorPosY) != null)
-                        {
-                            selectedTiger = boardModel.getTigerAt(cursorPosX, cursorPosY);
-                            state = PICKED;
-                        }
-                        else
-                        {
-                            //some error message signifying wrong thing picked
-                        }
-                    }
+                        cursorPosX--;
 
-                    else if (state == PICKED)
-                    {
-                        boardModel.moveTiger(selectedTiger, cursorPosX, cursorPosY);
-                        state = PLACED;
+
                     }
                 }
-
-                else if (boardModel.returnPlayer() == BoardModel.GOAT)
+                else if (e.KeyCode == Keys.Right)
                 {
-                    //work remaining here...a lot actually....
-                    if (count < 20)
+                    if (cursorPosX != 4)
                     {
-                        boardModel.placeGoat(cursorPosX, cursorPosY);
-                        count++;
+                        cursorPosX++;
                     }
-                    else
+                }
+                else if (e.KeyCode == Keys.Up)
+                {
+                    if (cursorPosY != 0)
+                    {
+                        cursorPosY--;
+                    }
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    if (cursorPosY != 4)
+                    {
+                        cursorPosY++;
+                    }
+                }
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    if (boardModel.returnPlayer() == BoardModel.TIGER)
                     {
                         if (state == PLACED)
                         {
-                            if (boardModel.getGoatAt(cursorPosX, cursorPosY) != null)
+                            if (boardModel.getTigerAt(cursorPosX, cursorPosY) != null)
                             {
-                                selectedGoat = boardModel.getGoatAt(cursorPosX, cursorPosY);
+                                selectedTiger = boardModel.getTigerAt(cursorPosX, cursorPosY);
                                 state = PICKED;
                             }
                             else
                             {
-                                //some error message signifying wrong picked up
+                                //some error message signifying wrong thing picked
                             }
                         }
+
                         else if (state == PICKED)
                         {
-                            boardModel.moveGoat(selectedGoat, cursorPosX, cursorPosY);
+                            boardModel.moveTiger(selectedTiger, cursorPosX, cursorPosY);
                             state = PLACED;
                         }
                     }
+
+                    else if (boardModel.returnPlayer() == BoardModel.GOAT)
+                    {
+                        //work remaining here...a lot actually....
+                        if (count < 20)
+                        {
+                            boardModel.placeGoat(cursorPosX, cursorPosY);
+                            count++;
+                        }
+                        else
+                        {
+                            mode = SLIDING;
+                            if (state == PLACED)
+                            {
+                                if (boardModel.getGoatAt(cursorPosX, cursorPosY) != null)
+                                {
+                                    selectedGoat = boardModel.getGoatAt(cursorPosX, cursorPosY);
+                                    state = PICKED;
+
+                                }
+                                else
+                                {
+                                    //some error message signifying wrong picked up
+                                }
+                            }
+                            else if (state == PICKED)
+                            {
+                                boardModel.moveGoat(selectedGoat, cursorPosX, cursorPosY);
+                                state = PLACED;
+                            }
+                        }
+                    }
                 }
+                else if (e.KeyCode == Keys.Escape)
+                {
+                    this.Close();
+                }
+                this.Invalidate();
             }
-            else if (e.KeyCode == Keys.Escape)
+            else
             {
-                this.Close();
+                    boardPosition.setParams(boardModel.returnPlayer(), mode, new BoardModel(boardModel));
+                    minMaxSearch.setCurrentBoardPosition(boardPosition, boardModel.returnPlayer());
+                    Boardposition newBoard = minMaxSearch.alphaBetaSearch(boardPosition);
+                    boardModel.setBoard(newBoard.boardModel.getboard());
+                    boardModel.setPlayer(-boardModel.returnPlayer());
+                    this.Invalidate(); 
             }
-
-
-
-
-            this.Invalidate();
+            
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ibagchaal
 {
-    class BoardModel: ISubject
+    class BoardModel: ICloneable,ISubject
     {
         public BoardModel()
         {
@@ -14,7 +14,28 @@ namespace ibagchaal
             resetBoard();
             
         }
+        public BoardModel(BoardModel other)
+        {
+            resetBoard();
+            for(int i=0;i<5;i++)
+                for(int j=0;j<5;j++)
+                    this.board[i,j] = other.board[i,j];
+            
+            for(int i=0;i<other.boardViews.Count;i++)
+                this.boardViews.Add(other.boardViews[i]);
 
+            for(int i=0;i<4;i++)
+                this.tigers[i] = other.tigers[i];
+
+            this.goatCount = other.goatCount;
+
+            for(int i=0;i<other.goats.Count;i++)
+                this.goats.Add(other.goats[i]);
+
+            this.goatsCaptured = other.goatsCaptured;
+            this.remainingGoats = other.remainingGoats;
+            this.turn = other.turn;
+        }
         public void resetBoard()
         {
             board = new int[boardSize, boardSize];
@@ -65,6 +86,11 @@ namespace ibagchaal
                 else
                     notifyObservers(Notifications.GOAT_PLACED);
             }
+        }
+
+        public object Clone()
+        {
+            return new BoardModel(this);
         }
 
         public void moveTiger(Tiger t, int k, int l) //move tiger into the postion
@@ -283,7 +309,10 @@ namespace ibagchaal
             return null;
                 
         }
-        
+        public void setBoard(int[,] b)
+        {
+            board = b;
+        }
         public Goat getGoatAt(int x, int y)
         {
             for (int i = 0; i < goatCount; i++)
@@ -303,8 +332,12 @@ namespace ibagchaal
         {
             return turn;
         }
+        public void setPlayer(int t)
+        {
+            turn = t;
+        }
         private System.Collections.ArrayList boardViews;
-        private System.Collections.ArrayList goats;
+        public System.Collections.ArrayList goats;
         private int[,] board;
         private int goatCount = 0;
         private int remainingGoats = 20;
@@ -314,8 +347,8 @@ namespace ibagchaal
         public static int EMPTY = 0;
         public Tiger[] tigers;
         public int goatsCaptured = 0;
-        public static int OPPONENT = GOAT;
-        public static int PLAYER = TIGER;
+        public static int OPPONENT = TIGER;
+        public static int PLAYER = GOAT;
         private int turn=GOAT;
     }
  

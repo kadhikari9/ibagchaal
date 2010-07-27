@@ -7,7 +7,7 @@ namespace ibagchaal
 {
     class MinMax                   
     {
-        MinMax()
+        public MinMax()
         {
         }
 
@@ -19,42 +19,46 @@ namespace ibagchaal
 
         public Boardposition alphaBetaSearch(Boardposition state)
         {
-            int v = maxValue(state, -1000, +1000);           // infinty approximated by 1000 ....becoz..umm...ummm...just for fun..
+            float v = maxValue(state, -1000, +1000);           // infinty approximated by 1000 ....becoz..umm...ummm...just for fun..
 
             foreach (Boardposition successor in state.nextPosition)
             {
                 if (successor.Utility == v) return successor;
             }
-
             return null;
+            
         }
 
-        private int maxValue(Boardposition state,int alpha,int beta)
+        private float maxValue(Boardposition state,float alpha,float beta)
         {
-            int v =-1000;
+            float v =-1000;
 
             if (state.boardModel.checkGameOver() != 0)
             {
                 if (state.boardModel.checkGameOver() == turn)
-                    return 1;
-                else return -1;
+                    state.Utility = 1;
+                else state.Utility = -1;
+
+                return state.Utility;
             }
             //check if state is in transposition table ..........if it is then return the evaluation funciton
             state.findMoves();
             
             foreach (Boardposition succesor in state.nextPosition)
             {
-                v=Math.Max(v,minValue(succesor,alpha,beta));
+                succesor.Utility = minValue(succesor, alpha, beta);
+                v=Math.Max(v,succesor.Utility);
                 if(v>=beta) return v;
                 alpha=Math.Max(alpha,v);
-
+                
             }
+            
             return v;
         }
 
-        private int minValue(Boardposition state, int alpha, int beta)
+        private float minValue(Boardposition state, float alpha, float beta)
         {
-            int v = +1000;
+            float v = 1000;
 
             if (state.boardModel.checkGameOver() != 0)
             {
@@ -67,15 +71,19 @@ namespace ibagchaal
 
             //check if the depth is 
             state.findMoves();
-            if (state.Depth >= 40)  //we will  work on this
+            if (state.Depth >= 4)  //we will  work on this
             {
+                Random rand = new Random();
+                state.Utility= (float)rand.Next(10)/(float)10.0;
+                return state.Utility;
                 //we will return the value obtained from the evalution function
             }
             foreach (Boardposition succesor in state.nextPosition)
             {
-                v = Math.Min(v, maxValue(succesor, alpha, beta));
+                succesor.Utility=maxValue(succesor, alpha, beta);
+                v = Math.Min(v, succesor.Utility);
                 if (v <= alpha) return v;
-                beta = Math.Min(alpha, v);
+                beta = Math.Min(beta, v);
 
             }
             return v;
