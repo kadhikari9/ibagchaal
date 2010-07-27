@@ -5,23 +5,39 @@ using System.Text;
 
 namespace ibagchaal
 {
-    class Boardposition
+    class  Boardposition
     {
-        Boardposition(int t,int m,BoardModel b)
+        public Boardposition()
+        {
+        }
+        public Boardposition(int t,int m,BoardModel b)
         {
             turn = t;
             mode = m;
             boardModel = b;
             board = b.getboard();
             tigers = b.tigers;
-            goats = new Goat[20];
+            goats = b.goats;
             numMoves = 0;
             nextPosition = new System.Collections.ArrayList();
         }
 
-        
+        public void setParams(int t, int m, BoardModel b)
+        {
+            turn = t;
+            mode = m;
+            boardModel = (BoardModel)b.Clone();
+           
+
+            board = boardModel.getboard();
+            tigers = boardModel.tigers;
+            goats = boardModel.goats;
+            numMoves = 0;
+            nextPosition = new System.Collections.ArrayList();
+        }
         public void findMoves()
         {
+            depth++;
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -35,10 +51,11 @@ namespace ibagchaal
                             {
                                 if(boardModel.checkMove(tigers[k].getXPos(),tigers[k].getYPos(),i,j)==true)
                                 {
-                                    BoardModel temp = boardModel;
-                                    temp.moveTiger(tigers[k], i, j);
-                                    Boardposition newPosition = new Boardposition(-(turn), mode, temp);
-                                    newPosition.Depth = depth++;
+                                    
+                                    BoardModel temp = (BoardModel)boardModel.Clone();
+                                    temp.moveTiger(temp.tigers[k], i, j);
+                                    Boardposition newPosition = new Boardposition(-(turn), mode, new BoardModel(temp));
+                                    newPosition.Depth = depth;
                                     nextPosition.Add(newPosition);
                                     numMoves++;
                                 }
@@ -49,10 +66,10 @@ namespace ibagchaal
                         {
                             if (mode == 0)  //supposing Placement mode = 0
                             {
-                                BoardModel temp = boardModel;
+                                BoardModel temp = (BoardModel)boardModel.Clone();
                                 temp.placeGoat(i, j);
-                                Boardposition newPosition = new Boardposition(-(turn), mode, temp);
-                                newPosition.Depth = depth++;
+                                Boardposition newPosition = new Boardposition(-(turn), mode, new BoardModel(temp));
+                                newPosition.Depth = depth;
                                 nextPosition.Add(newPosition);
                                 numMoves++;
                             }
@@ -62,10 +79,10 @@ namespace ibagchaal
                                 {
                                     if (boardModel.checkMove(newgoat.getXPos(), newgoat.getYPos(), i, j) == true)
                                     {
-                                        BoardModel temp = boardModel;
+                                        BoardModel temp = (BoardModel)boardModel.Clone();
                                         temp.moveGoat(newgoat, i, j);
                                         Boardposition newPosition = new Boardposition(-(turn), mode, temp);
-                                        newPosition.Depth = depth++;
+                                        newPosition.Depth = depth;
                                         nextPosition.Add(newPosition);
                                         numMoves++;
                                     }
@@ -76,7 +93,7 @@ namespace ibagchaal
                 }
             }
         }
-        public int Utility
+        public float Utility
         {
             set { utility = value; }
             get { return utility; }
@@ -87,10 +104,10 @@ namespace ibagchaal
             get { return depth; }
             set { depth = value; }
         }
-        private int utility;
-        private int depth;
+        private float utility;
+        private int depth=0;
         private Tiger[] tigers;
-        private Goat[] goats;
+        private System.Collections.ArrayList goats;
         public BoardModel boardModel;
         private int turn;
         private int mode;
