@@ -89,6 +89,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Tiger.cs" />
+    <Compile Include="TransTable.cs" />
+    <Compile Include="ZobristKey.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Tiger.jpg" />
