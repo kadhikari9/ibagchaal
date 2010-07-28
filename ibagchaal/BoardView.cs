@@ -135,8 +135,8 @@ namespace ibagchaal
         private int[,] board;
         private Bitmap tigerBitmap;
         private Bitmap goatBitmap;
-        private static int imageWidth = 120;
-        private static int imageHeight = 120;
+        private static int imageWidth = 90;
+        private static int imageHeight = 90;
         private static int width = 600;
         private static int height = 600;
         private int cursorWidth=100;

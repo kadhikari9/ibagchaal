@@ -5,23 +5,27 @@ using System.Text;
 
 namespace ibagchaal
 {
-    class Goat: Player
+    class Goat: Player,ICloneable
     {
       
         private static int goatId = 0;
         private int myId;
 
-        public Goat(int xp, int yp, BoardModel mod):base(xp,yp,mod)
+        public Goat(int xp, int yp):base(xp,yp)
         {
 
             myId = goatId++;
-            myParent = mod;
+            
         }
-
+        
        override public int getTag()
         {
             return BoardModel.GOAT;
         }
+       public object Clone()
+       {
+           return new Goat(xPos, yPos);
+       }
 
     }
 }

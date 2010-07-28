@@ -80,8 +80,8 @@ namespace ibagchaal
                                     if (boardModel.checkMove(newgoat.getXPos(), newgoat.getYPos(), i, j) == true)
                                     {
                                         BoardModel temp = (BoardModel)boardModel.Clone();
-                                        temp.moveGoat(newgoat, i, j);
-                                        Boardposition newPosition = new Boardposition(-(turn), mode, temp);
+                                        temp.moveGoat(newgoat.Clone() as Goat, i, j);
+                                        Boardposition newPosition = new Boardposition(-(turn), mode, new BoardModel(temp));
                                         newPosition.Depth = depth;
                                         nextPosition.Add(newPosition);
                                         numMoves++;

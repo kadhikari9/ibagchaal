@@ -25,12 +25,39 @@ namespace ibagchaal
                 this.boardViews.Add(other.boardViews[i]);
 
             for(int i=0;i<4;i++)
-                this.tigers[i] = other.tigers[i];
+                this.tigers[i] = (Tiger)other.tigers[i].Clone();
 
             this.goatCount = other.goatCount;
 
-            for(int i=0;i<other.goats.Count;i++)
-                this.goats.Add(other.goats[i]);
+            Object[] tempGoats = other.goats.ToArray();
+            for (int i = 0; i < other.goats.Count; i++)
+            {
+                this.goats.Add(((Goat)tempGoats[i]).Clone());
+            }
+
+            this.goatsCaptured = other.goatsCaptured;
+            this.remainingGoats = other.remainingGoats;
+            this.turn = other.turn;
+        }
+        public void copyEverything(BoardModel other)
+        {
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
+                    this.board[i, j] = other.board[i, j];
+
+            for (int i = 0; i < other.boardViews.Count; i++)
+                this.boardViews.Add(other.boardViews[i]);
+
+            for (int i = 0; i < 4; i++)
+                this.tigers[i] = (Tiger)other.tigers[i].Clone();
+
+            this.goatCount = other.goatCount;
+            this.goats.Clear();
+            Object[] tempGoats = other.goats.ToArray();
+            for (int i = 0; i < other.goats.Count; i++)
+            {
+                this.goats.Add(((Goat)tempGoats[i]).Clone());
+            }
 
             this.goatsCaptured = other.goatsCaptured;
             this.remainingGoats = other.remainingGoats;
@@ -50,10 +77,10 @@ namespace ibagchaal
                     board[i,j] = 0;
                 }
             }
-            tigers[0] = new Tiger(0, 0, this);
-            tigers[1] = new Tiger(0, 4, this);
-            tigers[2] = new Tiger(4, 0, this);
-            tigers[3] = new Tiger(4, 4, this);
+            tigers[0] = new Tiger(0, 0);
+            tigers[1] = new Tiger(0, 4);
+            tigers[2] = new Tiger(4, 0);
+            tigers[3] = new Tiger(4, 4);
             board[0, 0] = TIGER;
             board[4, 4] = TIGER;
             board[0, 4] = TIGER;
@@ -75,7 +102,7 @@ namespace ibagchaal
             }
             else
             {
-                Goat newgoat = new Goat(i, j, this);
+                Goat newgoat = new Goat(i, j);
                 goats.Add(newgoat);
                 board[i, j] = GOAT;
                 goatCount++;
@@ -250,7 +277,7 @@ namespace ibagchaal
                 return 1; //goat win
             for (int i = 0; i < 4; i++)
             {
-                if (!tigers[i].isBlocked(board))
+                if (!tigers[i].isBlocked(this))
                     return -1; //tiger win
             }
 

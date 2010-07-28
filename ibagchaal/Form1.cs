@@ -22,8 +22,8 @@ namespace ibagchaal
             boardModel = new BoardModel();
             cursorPosX = 0;
             cursorPosY = 0;
-            selectedTiger = new Tiger(0, 0, null);
-            selectedGoat = new Goat(0, 0, null);
+            selectedTiger = new Tiger(0, 0);
+            selectedGoat = new Goat(0, 0);
             g = this.CreateGraphics();
             boardView = new BoardView(g);
             Rectangle rect = SystemInformation.VirtualScreen;
@@ -58,6 +58,14 @@ namespace ibagchaal
         private static int PLACEMENT = 0;
         private static int SLIDING = 1;
         private int mode = PLACEMENT;
+        private void AIPlayer()
+        {
+            boardPosition.setParams(boardModel.returnPlayer(), mode, new BoardModel(boardModel));
+            minMaxSearch.setCurrentBoardPosition(boardPosition, boardModel.returnPlayer());
+            Boardposition newBoard = minMaxSearch.alphaBetaSearch(boardPosition);
+            boardModel.copyEverything(newBoard.boardModel);
+            this.Invalidate();
+        }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (boardModel.returnPlayer() != BoardModel.OPPONENT)
@@ -67,7 +75,7 @@ namespace ibagchaal
                     if (cursorPosX != 0)
                     {
                         cursorPosX--;
-
+                        this.Invalidate();
 
                     }
                 }
@@ -76,6 +84,7 @@ namespace ibagchaal
                     if (cursorPosX != 4)
                     {
                         cursorPosX++;
+                        this.Invalidate();
                     }
                 }
                 else if (e.KeyCode == Keys.Up)
@@ -83,6 +92,7 @@ namespace ibagchaal
                     if (cursorPosY != 0)
                     {
                         cursorPosY--;
+                        this.Invalidate();
                     }
                 }
                 else if (e.KeyCode == Keys.Down)
@@ -90,6 +100,7 @@ namespace ibagchaal
                     if (cursorPosY != 4)
                     {
                         cursorPosY++;
+                        this.Invalidate();
                     }
                 }
                 else if (e.KeyCode == Keys.Enter)
@@ -102,6 +113,7 @@ namespace ibagchaal
                             {
                                 selectedTiger = boardModel.getTigerAt(cursorPosX, cursorPosY);
                                 state = PICKED;
+                                this.Invalidate();
                             }
                             else
                             {
@@ -113,6 +125,8 @@ namespace ibagchaal
                         {
                             boardModel.moveTiger(selectedTiger, cursorPosX, cursorPosY);
                             state = PLACED;
+                            this.Invalidate();
+                            AIPlayer();
                         }
                     }
 
@@ -123,6 +137,8 @@ namespace ibagchaal
                         {
                             boardModel.placeGoat(cursorPosX, cursorPosY);
                             count++;
+                            this.Invalidate();
+                            AIPlayer();
                         }
                         else
                         {
@@ -133,7 +149,7 @@ namespace ibagchaal
                                 {
                                     selectedGoat = boardModel.getGoatAt(cursorPosX, cursorPosY);
                                     state = PICKED;
-
+                                    this.Invalidate();
                                 }
                                 else
                                 {
@@ -144,6 +160,9 @@ namespace ibagchaal
                             {
                                 boardModel.moveGoat(selectedGoat, cursorPosX, cursorPosY);
                                 state = PLACED;
+                                this.Invalidate();
+                                AIPlayer();
+                                
                             }
                         }
                     }
@@ -152,17 +171,9 @@ namespace ibagchaal
                 {
                     this.Close();
                 }
-                this.Invalidate();
+                
             }
-            else
-            {
-                    boardPosition.setParams(boardModel.returnPlayer(), mode, new BoardModel(boardModel));
-                    minMaxSearch.setCurrentBoardPosition(boardPosition, boardModel.returnPlayer());
-                    Boardposition newBoard = minMaxSearch.alphaBetaSearch(boardPosition);
-                    boardModel.setBoard(newBoard.boardModel.getboard());
-                    boardModel.setPlayer(-boardModel.returnPlayer());
-                    this.Invalidate(); 
-            }
+            
             
         }
     }

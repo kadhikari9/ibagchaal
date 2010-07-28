@@ -8,14 +8,14 @@ namespace ibagchaal
     class Player
     {
         protected int xPos, yPos;
-        protected BoardModel myParent;
+       
        
 
-        public Player(int xP, int yP, BoardModel parent)
+        public Player(int xP, int yP)
         {
              xPos=xP;
             yPos=yP;
-            myParent = parent;
+            
         }
 
         public int getXPos()
@@ -39,6 +39,7 @@ namespace ibagchaal
         {
             return 0;
         }
+        
        
     }
 }
