@@ -276,11 +276,11 @@ namespace ibagchaal
         public int checkGameOver() // checks if game has been over.
         {
             if (goatsCaptured > 5)
-                return 1; //goat win
+                return -1; //goat win
             for (int i = 0; i < 4; i++)
             {
                 if (!tigers[i].isBlocked(this))
-                    return -1; //tiger win
+                    return 1; //tiger win
             }
 
             return 0; //draw

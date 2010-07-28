@@ -97,7 +97,7 @@ namespace ibagchaal
             get { return depth; }
             set { depth = value; }
         }
-        private float utility;
+        private float utility=0;
         private int depth=0;
         private Tiger[] tigers;
         private System.Collections.ArrayList goats;
