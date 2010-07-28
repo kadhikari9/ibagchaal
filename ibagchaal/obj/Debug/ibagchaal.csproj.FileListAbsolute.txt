@@ -14,3 +14,5 @@ E:\KUSU\Projects\C sharp\IBagchaal\ibagchaal\obj\Debug\ibagchaal.Properties.Reso
 E:\KUSU\Projects\C sharp\IBagchaal\ibagchaal\obj\Debug\ibagchaal.csproj.GenerateResource.Cache
 E:\KUSU\Projects\C sharp\IBagchaal\ibagchaal\obj\Debug\ibagchaal.exe
 E:\KUSU\Projects\C sharp\IBagchaal\ibagchaal\obj\Debug\ibagchaal.pdb
+C:\Users\Tsuman\Documents\Visual Studio 2008\Projects\Project1\trunk\ibagchaal\obj\Debug\ibagchaal.exe
+C:\Users\Tsuman\Documents\Visual Studio 2008\Projects\Project1\trunk\ibagchaal\obj\Debug\ibagchaal.pdb
