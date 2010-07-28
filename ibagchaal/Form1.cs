@@ -60,11 +60,13 @@ namespace ibagchaal
         private int mode = PLACEMENT;
         private void AIPlayer()
         {
+            boardModel.AIPLAYER = 1;
             boardPosition.setParams(boardModel.returnPlayer(), mode, new BoardModel(boardModel));
             minMaxSearch.setCurrentBoardPosition(boardPosition, boardModel.returnPlayer());
             Boardposition newBoard = minMaxSearch.alphaBetaSearch(boardPosition);
-            boardModel.copyEverything(newBoard.boardModel);
+            boardModel.copyEverything(new BoardModel(newBoard.boardModel));
             this.Invalidate();
+            boardModel.AIPLAYER = 0;
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {

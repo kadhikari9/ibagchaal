@@ -32,7 +32,6 @@ namespace ibagchaal
         private float maxValue(Boardposition state,float alpha,float beta)
         {
             float v =-1000;
-
             if (state.boardModel.checkGameOver() != 0)
             {
                 if (state.boardModel.checkGameOver() == turn)
@@ -63,14 +62,16 @@ namespace ibagchaal
             if (state.boardModel.checkGameOver() != 0)
             {
                 if (state.boardModel.checkGameOver() == turn)
-                    return 1;
-                else return -1;
+                    state.Utility = 1;
+                else state.Utility = -1;
+
+                return state.Utility;
             }
 
             //check if state is in transposition table ..........if it is then return the evaluation funciton
 
             //check if the depth is 
-            state.findMoves();
+           
             if (state.Depth >= 4)  //we will  work on this
             {
                 Random rand = new Random();
@@ -78,6 +79,7 @@ namespace ibagchaal
                 return state.Utility;
                 //we will return the value obtained from the evalution function
             }
+            state.findMoves();
             foreach (Boardposition succesor in state.nextPosition)
             {
                 succesor.Utility=maxValue(succesor, alpha, beta);
