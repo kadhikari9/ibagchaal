@@ -21,8 +21,8 @@ namespace ibagchaal
                 for(int j=0;j<5;j++)
                     this.board[i,j] = other.board[i,j];
             
-            for(int i=0;i<other.boardViews.Count;i++)
-                this.boardViews.Add(other.boardViews[i]);
+          //  for(int i=0;i<other.boardViews.Count;i++)
+           //     this.boardViews.Add(other.boardViews[i]);
 
             for(int i=0;i<4;i++)
                 this.tigers[i] = (Tiger)other.tigers[i].Clone();
@@ -38,6 +38,7 @@ namespace ibagchaal
             this.goatsCaptured = other.goatsCaptured;
             this.remainingGoats = other.remainingGoats;
             this.turn = other.turn;
+            this.player = other.player;
         }
         public void copyEverything(BoardModel other)
         {
@@ -45,8 +46,8 @@ namespace ibagchaal
                 for (int j = 0; j < 5; j++)
                     this.board[i, j] = other.board[i, j];
 
-            for (int i = 0; i < other.boardViews.Count; i++)
-                this.boardViews.Add(other.boardViews[i]);
+        //    for (int i = 0; i < other.boardViews.Count; i++)
+         //       this.boardViews.Add(other.boardViews[i]);
 
             for (int i = 0; i < 4; i++)
                 this.tigers[i] = (Tiger)other.tigers[i].Clone();
@@ -62,6 +63,7 @@ namespace ibagchaal
             this.goatsCaptured = other.goatsCaptured;
             this.remainingGoats = other.remainingGoats;
             this.turn = other.turn;
+            this.player = other.player;
         }
         public void resetBoard()
         {
@@ -317,11 +319,17 @@ namespace ibagchaal
         //notify observers that the model has changed
         public void notifyObservers(String notificationType)
         {
-            for (int i = 0; i < boardViews.Count; i++)
+
+            if (AIPLAYER != 1)
             {
-                IObserver curr = boardViews[i] as IObserver;
-                curr.update(notificationType,this);
+                Console.WriteLine("{0}", boardViews.Count);
+                for (int i = 0; i < boardViews.Count; i++)
+               {
+                    IObserver curr = boardViews[0] as IObserver;
+                    curr.update(notificationType, this);
+                }
             }
+            
         }
 
         public Tiger getTigerAt(int x, int y)
@@ -363,6 +371,11 @@ namespace ibagchaal
         {
             turn = t;
         }
+        public int AIPLAYER
+        {
+            set { player = value; }
+            get { return player; }
+        }
         private System.Collections.ArrayList boardViews;
         public System.Collections.ArrayList goats;
         private int[,] board;
@@ -377,6 +390,8 @@ namespace ibagchaal
         public static int OPPONENT = TIGER;
         public static int PLAYER = GOAT;
         private int turn=GOAT;
+        private int player = 0;
+
     }
  
 

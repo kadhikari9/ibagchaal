@@ -12,14 +12,7 @@ namespace ibagchaal
         }
         public Boardposition(int t,int m,BoardModel b)
         {
-            turn = t;
-            mode = m;
-            boardModel = b;
-            board = b.getboard();
-            tigers = b.tigers;
-            goats = b.goats;
-            numMoves = 0;
-            nextPosition = new System.Collections.ArrayList();
+            setParams(t, m, b);
         }
 
         public void setParams(int t, int m, BoardModel b)
