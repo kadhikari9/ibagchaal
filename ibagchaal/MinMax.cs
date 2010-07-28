@@ -35,8 +35,8 @@ namespace ibagchaal
             if (state.boardModel.checkGameOver() != 0)
             {
                 if (state.boardModel.checkGameOver() == turn)
-                    state.Utility = 1;
-                else state.Utility = -1;
+                    state.Utility = 500;
+                else state.Utility = -500;
 
                 return state.Utility;
             }
@@ -62,8 +62,8 @@ namespace ibagchaal
             if (state.boardModel.checkGameOver() != 0)
             {
                 if (state.boardModel.checkGameOver() == turn)
-                    state.Utility = 1;
-                else state.Utility = -1;
+                    state.Utility = 500;
+                else state.Utility = -500;
 
                 return state.Utility;
             }
@@ -72,10 +72,10 @@ namespace ibagchaal
 
             //check if the depth is 
            
-            if (state.Depth >= 3)  //we will  work on this
+            if (state.Depth >= 5)  //we will  work on this
             {
                 Random rand = new Random();
-                state.Utility= (float)rand.Next(10)/(float)10.0;
+                state.Utility= (float)rand.Next(500);
                 return state.Utility;
                 //we will return the value obtained from the evalution function
             }

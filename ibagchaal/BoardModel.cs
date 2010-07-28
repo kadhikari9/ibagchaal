@@ -136,6 +136,11 @@ namespace ibagchaal
             {
                 board[t.getXPos(), t.getYPos()] = 0;
                 board[k, l] = t.getTag() ;
+                if (stateCapture == true)
+                {
+                    captureGoat(t, getGoatAt(capPosX, capPosY), k, l);
+                    stateCapture = false;
+                }
                 t.setPos(k, l);
                 turn = -(turn);
                 notifyObservers(Notifications.TIGER_MOVED);
@@ -168,44 +173,68 @@ namespace ibagchaal
             {
                 if (i + 2 == k && j == l && board[i + 1, j] == BoardModel.GOAT)
                 {
-                    captureGoat(getTigerAt(i, j), getGoatAt(i + 1, j), k, l);
+                    //captureGoat(getTigerAt(i, j), getGoatAt(i + 1, j), k, l);
+                    capPosX = i + 1;
+                    capPosY = j;
+                    stateCapture = true;
                     return true;
                 }
                 else if (i - 2 == k && j == l && board[i - 1, j] == BoardModel.GOAT)
                 {
-                    captureGoat(getTigerAt(i, j), getGoatAt(i - 1, j), k, l);
+                    //captureGoat(getTigerAt(i, j), getGoatAt(i - 1, j), k, l);
+                    capPosX = i - 1;
+                    capPosY = j;
+                    stateCapture = true;
                     return true;
                 }
                 else if (i == k && j - 2 == l && board[i, j - 1] == BoardModel.GOAT)
                 {
-                    captureGoat(getTigerAt(i, j), getGoatAt(i , j-1), k, l);
+                    //captureGoat(getTigerAt(i, j), getGoatAt(i , j-1), k, l);
+                    capPosX = i;
+                    capPosY = j - 1;
+                    stateCapture = true;
                     return true;
                 }
                 else if (i == k && j + 2 == l && board[i, j + 1] == BoardModel.GOAT)
                 {
-                    captureGoat(getTigerAt(i, j), getGoatAt(i , j+1), k, l);
+                    //captureGoat(getTigerAt(i, j), getGoatAt(i , j+1), k, l);
+                    capPosX = i;
+                    capPosY = j + 1;
+                    stateCapture = true;
                     return true;
                 }
                 if ((i + j) % 2 == 0)
                 {
                     if (i + 2 == k && j + 2 == l && board[i + 1, j + 1] == BoardModel.GOAT)
                     {
-                        captureGoat(getTigerAt(i, j), getGoatAt(i + 1, j+1), k, l);
+                        //captureGoat(getTigerAt(i, j), getGoatAt(i + 1, j+1), k, l);
+                        capPosX = i + 1;
+                        capPosY = j + 1;
+                        stateCapture = true;
                         return true;
                     }
                     else if (i + 2 == k && j - 2 == l && board[i + 1, j - 1] == BoardModel.GOAT)
                     {
-                        captureGoat(getTigerAt(i, j), getGoatAt(i + 1, j-1), k, l);
+                        //captureGoat(getTigerAt(i, j), getGoatAt(i + 1, j-1), k, l);
+                        capPosX = i + 1;
+                        capPosY = j - 1;
+                        stateCapture = true;
                         return true;
                     }
                     else if (i - 2 == k && j + 2 == l && board[i - 1, j + 1] == BoardModel.GOAT)
                     {
-                        captureGoat(getTigerAt(i, j), getGoatAt(i - 1, j+1), k, l);
+                        //captureGoat(getTigerAt(i, j), getGoatAt(i - 1, j+1), k, l);
+                        capPosX = i - 1;
+                        capPosY = j + 1;
+                        stateCapture = true;
                         return true;
                     }
                     else if (i - 2 == k && j - 2 == l && board[i - 1, j - 1] == BoardModel.GOAT)
                     {
-                        captureGoat(getTigerAt(i, j), getGoatAt(i - 1, j-1), k, l);
+                        //captureGoat(getTigerAt(i, j), getGoatAt(i - 1, j-1), k, l);
+                        capPosX = i - 1;
+                        capPosY = j - 1;
+                        stateCapture = true;
                         return true;
                     }
                 }                
@@ -220,7 +249,7 @@ namespace ibagchaal
 
         public void captureGoat(Tiger t, Goat g,int x,int y) 
         {
-            if (!checkMove(t.getXPos(), t.getYPos(), g.getXPos(), g.getYPos()))
+      /*      if (!checkMove(t.getXPos(), t.getYPos(), g.getXPos(), g.getYPos()))
             {
                 notifyObservers(Notifications.ILLEGAL_MOVE);
             }
@@ -231,7 +260,7 @@ namespace ibagchaal
             }
 
 
-            else
+            else*/
             {
                 goatCount--;
                 board[g.getXPos(), g.getYPos()] = 0;
@@ -277,12 +306,16 @@ namespace ibagchaal
         {
             if (goatsCaptured > 5)
                 return -1; //goat win
+            int temp = 1;
             for (int i = 0; i < 4; i++)
             {
                 if (!tigers[i].isBlocked(this))
-                    return 1; //tiger win
+                {
+                    temp = 0;
+                    break;
+                }
             }
-
+            if (temp == 1) return 1;
             return 0; //draw
 
         }
@@ -322,7 +355,6 @@ namespace ibagchaal
 
             if (AIPLAYER != 1)
             {
-                Console.WriteLine("{0}", boardViews.Count);
                 for (int i = 0; i < boardViews.Count; i++)
                {
                     IObserver curr = boardViews[0] as IObserver;
@@ -387,6 +419,9 @@ namespace ibagchaal
         public static int EMPTY = 0;
         public Tiger[] tigers;
         public int goatsCaptured = 0;
+        private int capPosX;
+        private int capPosY;
+        public bool stateCapture = false;
         public static int OPPONENT = TIGER;
         public static int PLAYER = GOAT;
         private int turn=GOAT;
