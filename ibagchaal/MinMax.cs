@@ -72,7 +72,7 @@ namespace ibagchaal
 
             //check if the depth is 
            
-            if (state.Depth >= 4)  //we will  work on this
+            if (state.Depth >= 3)  //we will  work on this
             {
                 Random rand = new Random();
                 state.Utility= (float)rand.Next(10)/(float)10.0;
