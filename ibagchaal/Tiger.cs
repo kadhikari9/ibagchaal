@@ -18,9 +18,9 @@ namespace ibagchaal
                 
         public bool isBlocked(BoardModel myParent)
         {
-            if (myParent.isPositionOccupied(xPos - 1, yPos - 1) || myParent.isPositionOccupied(xPos + 1, yPos + 1) ||
-                myParent.isPositionOccupied(xPos, yPos - 1) || myParent.isPositionOccupied(xPos, yPos + 1) ||
-                myParent.isPositionOccupied(xPos-1, yPos ) || myParent.isPositionOccupied(xPos + 1, yPos))
+            if (myParent.isPositionOccupied(xPos - 1, yPos - 1) && myParent.isPositionOccupied(xPos + 1, yPos + 1) &&
+                myParent.isPositionOccupied(xPos, yPos - 1) && myParent.isPositionOccupied(xPos, yPos + 1) &&
+                myParent.isPositionOccupied(xPos-1, yPos ) && myParent.isPositionOccupied(xPos + 1, yPos))
                 return true;
             else
                 return false;
