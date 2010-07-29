@@ -269,7 +269,9 @@ namespace ibagchaal
             else*/
             {
                 goatCount--;
+                
                 goatsCaptured++;
+
                 board[g.getXPos(), g.getYPos()] = 0;
                 goats.Remove(g);
                 if (checkGameOver() == -1)
