@@ -18,10 +18,12 @@ namespace ibagchaal
         {
             currentBoardPosition = boardPosition;
             turn = t;
+            
         }
 
         public Boardposition alphaBetaSearch(Boardposition state)
         {
+            depth = state.Depth;
             float v = maxValue(state, -10000, +10000);           // infinty approximated by 1000 ....becoz..umm...ummm...just for fun..
 
             foreach (Boardposition successor in state.nextPosition)
@@ -44,21 +46,22 @@ namespace ibagchaal
                 return state.Utility;
             }
             //check if state is in transposition table ..........if it is then return the evaluation funciton
-          /*  long key = ZobristKey.ComputeBoardZobristKey(state.boardModel.getboard());
+          
+              long key = ZobristKey.ComputeBoardZobristKey(state.boardModel.getboard());
             int val = transTable.ProbeEntry(key, state.Depth, (int)alpha, (int)beta);
             if (val != Int32.MaxValue)
                 return val;
 
-            if (state.Depth >= 3 && state.Depth < 5)
+            if (state.Depth >= (3 + depth) && state.Depth < (5 + depth))
             {
                 Random rand = new Random();
                 transTable.RecordEntry(key, state.Depth, (int)alpha, TransEntryType.Alpha);
                 transTable.RecordEntry(key, state.Depth, (int)beta, TransEntryType.Beta);
                 evaluationUtility.setBoardPosition(state);
-                transTable.RecordEntry(key, state.Depth, (int)evaluationUtility.evaluateBoard(), TransEntryType.Exact);
+                transTable.RecordEntry(key, state.Depth, -(int)evaluationUtility.evaluateBoard(), TransEntryType.Exact);
 
             }
-            */
+            
             state.findMoves();
             
             foreach (Boardposition succesor in state.nextPosition)
@@ -87,24 +90,24 @@ namespace ibagchaal
             }
 
             //check if state is in transposition table ..........if it is then return the evaluation funciton
-            /*long key = ZobristKey.ComputeBoardZobristKey(state.boardModel.getboard());
+            long key = ZobristKey.ComputeBoardZobristKey(state.boardModel.getboard());
             int val = transTable.ProbeEntry(key, state.Depth, (int)alpha, (int)beta);
             if (val != Int32.MaxValue)
                 return val;
 
-            if (state.Depth >= 3 && state.Depth < 5)
+            if (state.Depth >= (3+depth) && state.Depth < (5+depth))
             {
                 Random rand = new Random();
                 transTable.RecordEntry(key, state.Depth, (int)alpha, TransEntryType.Alpha);
                 transTable.RecordEntry(key, state.Depth, (int)beta, TransEntryType.Beta);
                 evaluationUtility.setBoardPosition(state);
-                transTable.RecordEntry(key, state.Depth,(int) evaluationUtility.evaluateBoard(), TransEntryType.Exact);
+                transTable.RecordEntry(key, state.Depth,-(int)evaluationUtility.evaluateBoard(), TransEntryType.Exact);
 
             }
-            */
+            
             //check if the depth is 
            
-            if (state.Depth >= 5)  //we will  work on this
+            if (state.Depth >= (5+depth))  //we will  work on this
             {
                 evaluationUtility.setBoardPosition(state);
                 state.Utility = evaluationUtility.evaluateBoard();
@@ -128,5 +131,6 @@ namespace ibagchaal
         private static int MAXENTRYHASH = 100;
         private Boardposition currentBoardPosition;
         private int turn;
+        private int depth = 0;
     }
 }
