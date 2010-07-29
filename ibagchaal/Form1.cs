@@ -39,6 +39,8 @@ namespace ibagchaal
         {
             boardView.placeCursor(cursorPosX, cursorPosY);
             boardView.drawBoard(Color.Black, 3);
+            goatCapturedLabel.Text = boardModel.goatsCaptured.ToString();
+            goatLeftLabel.Text = (20 - count).ToString();
             boardView.getBoard();
         }
 
@@ -58,15 +60,47 @@ namespace ibagchaal
         private static int PLACEMENT = 0;
         private static int SLIDING = 1;
         private int mode = PLACEMENT;
-        private void AIPlayer()
+
+        private void AIPlayerI()
         {
             boardModel.AIPLAYER = 1;
             boardPosition.setParams(boardModel.returnPlayer(), mode, new BoardModel(boardModel));
-            minMaxSearch.setCurrentBoardPosition(boardPosition, boardModel.returnPlayer());
-            Boardposition newBoard = minMaxSearch.alphaBetaSearch(boardPosition);
-            boardModel.copyEverything(new BoardModel(newBoard.boardModel));
+            boardPosition.findMoves();
+            boardModel.copyEverything(new BoardModel(boardPosition.calculateProbability()));
             this.Invalidate();
             boardModel.AIPLAYER = 0;
+                
+        }
+        private void AIPlayer()
+        {
+            
+            if (boardModel.checkGameOver() == BoardModel.GOAT)
+            {
+                winnerLabel.Text = "Goat Wins";
+            }
+            else if (boardModel.checkGameOver() == BoardModel.TIGER)
+            {
+                winnerLabel.Text = "Tiger Wins";
+            }
+            else
+            {
+                boardModel.AIPLAYER = 1;
+                boardPosition.setParams(boardModel.returnPlayer(), mode, new BoardModel(boardModel));
+                minMaxSearch.setCurrentBoardPosition(boardPosition, boardModel.returnPlayer());
+                Boardposition newBoard = minMaxSearch.alphaBetaSearch(boardPosition);
+                if (newBoard.boardModel.checkGameOver() == BoardModel.GOAT)
+                {
+                    winnerLabel.Text = "Goat Wins";
+                }
+                else if (newBoard.boardModel.checkGameOver() == BoardModel.TIGER)
+                {
+                    winnerLabel.Text = "Tiger Wins";
+                }
+                else
+                    boardModel.copyEverything(new BoardModel(newBoard.boardModel));
+                this.Invalidate();
+                boardModel.AIPLAYER = 0;
+            }
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -128,7 +162,7 @@ namespace ibagchaal
                             boardModel.moveTiger(selectedTiger, cursorPosX, cursorPosY);
                             state = PLACED;
                             this.Invalidate();
-                            AIPlayer();
+                            AIPlayerI();
                         }
                     }
 
@@ -140,7 +174,7 @@ namespace ibagchaal
                             boardModel.placeGoat(cursorPosX, cursorPosY);
                             count++;
                             this.Invalidate();
-                            AIPlayer();
+                            AIPlayerI();
                         }
                         else
                         {
@@ -163,7 +197,7 @@ namespace ibagchaal
                                 boardModel.moveGoat(selectedGoat, cursorPosX, cursorPosY);
                                 state = PLACED;
                                 this.Invalidate();
-                                AIPlayer();
+                                AIPlayerI();
                                 
                             }
                         }
@@ -177,6 +211,11 @@ namespace ibagchaal
             }
             
             
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

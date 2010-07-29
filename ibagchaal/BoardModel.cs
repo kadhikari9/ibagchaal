@@ -39,6 +39,9 @@ namespace ibagchaal
             this.remainingGoats = other.remainingGoats;
             this.turn = other.turn;
             this.player = other.player;
+            this.leadingToCapture = other.leadingToCapture;
+            this.leadingToThreat = other.leadingToThreat;
+            this.winningCenter = other.winningCenter;
         }
         public void copyEverything(BoardModel other)
         {
@@ -64,6 +67,9 @@ namespace ibagchaal
             this.remainingGoats = other.remainingGoats;
             this.turn = other.turn;
             this.player = other.player;
+            this.leadingToCapture = other.leadingToCapture;
+            this.leadingToThreat = other.leadingToThreat;
+            this.winningCenter = other.winningCenter;
         }
         public void resetBoard()
         {
@@ -263,6 +269,7 @@ namespace ibagchaal
             else*/
             {
                 goatCount--;
+                goatsCaptured++;
                 board[g.getXPos(), g.getYPos()] = 0;
                 goats.Remove(g);
                 if (checkGameOver() == -1)
@@ -426,7 +433,9 @@ namespace ibagchaal
         public static int PLAYER = GOAT;
         private int turn=GOAT;
         private int player = 0;
-
+        public int leadingToCapture = 0;
+        public int leadingToThreat = 0;
+        public int winningCenter = 0;
     }
  
 
