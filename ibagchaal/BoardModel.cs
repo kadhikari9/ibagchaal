@@ -411,7 +411,7 @@ namespace ibagchaal
         private System.Collections.ArrayList boardViews;
         public System.Collections.ArrayList goats;
         private int[,] board;
-        private int goatCount = 0;
+        public int goatCount = 0;
         private int remainingGoats = 20;
         private static int boardSize = 5;
         public static int TIGER = -1;
