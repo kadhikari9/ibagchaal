@@ -60,15 +60,41 @@ namespace ibagchaal
         private static int PLACEMENT = 0;
         private static int SLIDING = 1;
         private int mode = PLACEMENT;
+        private int gameOver=0;
 
         private void AIPlayerI()
         {
-            boardModel.AIPLAYER = 1;
-            boardPosition.setParams(boardModel.returnPlayer(), mode, new BoardModel(boardModel));
-            boardPosition.findMoves();
-            boardModel.copyEverything(new BoardModel(boardPosition.calculateProbability()));
-            this.Invalidate();
-            boardModel.AIPLAYER = 0;
+            if (boardModel.checkGameOver() == BoardModel.GOAT)
+            {
+                winnerLabel.Text = "Goat Wins";
+                gameOver = 1;
+            }
+            else if (boardModel.checkGameOver() == BoardModel.TIGER)
+            {
+                winnerLabel.Text = "Tiger Wins";
+                gameOver = 1;
+            }
+            else
+            {
+                boardModel.AIPLAYER = 1;
+                boardPosition.setParams(boardModel.returnPlayer(), mode, new BoardModel(boardModel));
+                boardPosition.findMoves();
+                BoardModel newBoard = boardPosition.calculateProbability();
+                if (newBoard.checkGameOver() == BoardModel.GOAT)
+                {
+                    winnerLabel.Text = "Goat Wins";
+                    gameOver = 1;
+                }
+                else if (newBoard.checkGameOver() == BoardModel.TIGER)
+                {
+                    winnerLabel.Text = "Tiger Wins";
+                    gameOver = 1;
+                }
+                else
+                    boardModel.copyEverything(new BoardModel(newBoard));
+                this.Invalidate();
+                boardModel.AIPLAYER = 0;
+            }
                 
         }
         private void AIPlayer()
@@ -104,7 +130,7 @@ namespace ibagchaal
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (boardModel.returnPlayer() != BoardModel.OPPONENT)
+            if (boardModel.returnPlayer() != BoardModel.OPPONENT || gameOver!=0)
             {
                 if (e.KeyCode == Keys.Left)
                 {
