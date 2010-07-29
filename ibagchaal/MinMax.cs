@@ -93,6 +93,7 @@ namespace ibagchaal
 
         public float evaluationFunction()
         {
+            return 0;
 
         }
        

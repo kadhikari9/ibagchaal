@@ -20,8 +20,8 @@ namespace ibagchaal
         // Type of pieces in the board.
         public enum Piece : byte{
             Empty = 0,
-            Tiger = -1,
-            Goat = 1
+            Tiger =1,
+            Goat = 2
         }
         // private Piece[] m_pBoard;
         // Static constructor. Use to create the random value for each case of the board.
