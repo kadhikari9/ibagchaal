@@ -18,10 +18,17 @@ namespace ibagchaal
                 
         public bool isBlocked(BoardModel myParent)
         {
-            if (myParent.isPositionOccupied(xPos - 1, yPos - 1) && myParent.isPositionOccupied(xPos + 1, yPos + 1) &&
-                myParent.isPositionOccupied(xPos, yPos - 1) && myParent.isPositionOccupied(xPos, yPos + 1) &&
-                myParent.isPositionOccupied(xPos-1, yPos ) && myParent.isPositionOccupied(xPos + 1, yPos))
+            if ((xPos+yPos)%2!=0 && myParent.isPositionOccupied(xPos, yPos - 1) && myParent.isPositionOccupied(xPos, yPos + 1) &&
+                myParent.isPositionOccupied(xPos-1, yPos ) && myParent.isPositionOccupied(xPos + 1, yPos) && myParent.isPositionOccupied(xPos, yPos - 2) && myParent.isPositionOccupied(xPos, yPos + 2) &&
+                myParent.isPositionOccupied(xPos-2, yPos ) && myParent.isPositionOccupied(xPos + 2, yPos))
                 return true;
+            else if((xPos+yPos)%2==0 && myParent.isPositionOccupied(xPos - 1, yPos - 1) && myParent.isPositionOccupied(xPos + 1, yPos + 1) &&
+                myParent.isPositionOccupied(xPos - 1, yPos + 1) && myParent.isPositionOccupied(xPos + 1, yPos - 1) && myParent.isPositionOccupied(xPos, yPos - 1) && myParent.isPositionOccupied(xPos, yPos + 1) &&
+                myParent.isPositionOccupied(xPos - 1, yPos) && myParent.isPositionOccupied(xPos + 1, yPos) && myParent.isPositionOccupied(xPos, yPos - 2) && myParent.isPositionOccupied(xPos, yPos + 2) &&
+                myParent.isPositionOccupied(xPos-2, yPos ) && myParent.isPositionOccupied(xPos + 2, yPos) && myParent.isPositionOccupied(xPos - 2, yPos - 2) && myParent.isPositionOccupied(xPos + 2, yPos + 2) &&
+                myParent.isPositionOccupied(xPos - 2, yPos + 2) && myParent.isPositionOccupied(xPos + 2, yPos - 2))
+                return true;
+            
             else
                 return false;
 
@@ -42,3 +49,4 @@ namespace ibagchaal
        }
     }
 }
+
