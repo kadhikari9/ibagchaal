@@ -31,10 +31,11 @@ namespace ibagchaal
        {
            for (int i = 0; i < t.Length; i++)
            {
-               int tx = t[i].getXPos;
-               int ty = t[i].getYPos;
+               int tx = t[i].getXPos();
+               int ty = t[i].getYPos();
               
            }
+           return true;
        }
     }
 }
