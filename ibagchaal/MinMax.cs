@@ -90,7 +90,14 @@ namespace ibagchaal
             }
             return v;
         }
-        
+
+        public float evaluationFunction()
+        {
+
+        }
+       
+       
+
         private Boardposition currentBoardPosition;
         private int turn;
     }

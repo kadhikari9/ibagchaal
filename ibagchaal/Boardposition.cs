@@ -97,6 +97,12 @@ namespace ibagchaal
             get { return depth; }
             set { depth = value; }
         }
+        public Tiger[] getTigers()
+        {
+            return tigers;
+        }
+
+
         private float utility=0;
         private int depth=0;
         private Tiger[] tigers;

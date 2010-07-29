@@ -27,5 +27,14 @@ namespace ibagchaal
            return new Goat(xPos, yPos);
        }
 
+       public bool isChecked(Tiger[] t,int [,] b)
+       {
+           for (int i = 0; i < t.Length; i++)
+           {
+               int tx = t[i].getXPos;
+               int ty = t[i].getYPos;
+              
+           }
+       }
     }
 }
