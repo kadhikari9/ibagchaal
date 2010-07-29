@@ -16,7 +16,7 @@ namespace ibagchaal
         // 15 16 17 18 19
         // 20 21 22 23 24
         */
-
+        static public int[] pieceValue = { 1, 0, 2 };
         // Type of pieces in the board.
         public enum Piece : byte{
             Empty = 0,
@@ -37,8 +37,8 @@ namespace ibagchaal
             //m_i64ZobristKey         = ZobristKey.ComputeBoardZobristKey(m_pBoard);
 
             rnd = new Random(0);
-            m_pi64RndTable=new Int64[25 * 4];
-            for (int i = 0; i < 25 * 4; i++)
+            m_pi64RndTable=new Int64[25 * 16];
+            for (int i = 0; i < 25 * 16; i++)
             {
                 lPart1 = (long)rnd.Next(65536);
                 lPart2 = (long)rnd.Next(65536);
@@ -60,12 +60,15 @@ namespace ibagchaal
         }
 
         // Compute the Zobrist key for a board.
-        public static long ComputeBoardZobristKey(Piece[] peBoard)
+        public static long ComputeBoardZobristKey(int[,] peBoard)
         {
             long lRetVal = 0;
-            for (int i = 0; i < 25; i++)
-            { 
-                lRetVal ^= m_pi64RndTable[(i << 4) + (int)peBoard[i] ];
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    lRetVal ^= m_pi64RndTable[((i*5+j) << 4) + pieceValue[peBoard[i,j]+1]];
+                }
             }
             return lRetVal;
         }

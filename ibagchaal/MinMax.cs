@@ -9,6 +9,9 @@ namespace ibagchaal
     {
         public MinMax()
         {
+            zobristKey = new ZobristKey();
+            transTable = new TransTable(MAXENTRYHASH);
+            evaluationUtility = new EvalutionUtility(null);
         }
 
         public void setCurrentBoardPosition(Boardposition boardPosition,int t)
@@ -19,7 +22,7 @@ namespace ibagchaal
 
         public Boardposition alphaBetaSearch(Boardposition state)
         {
-            float v = maxValue(state, -1000, +1000);           // infinty approximated by 1000 ....becoz..umm...ummm...just for fun..
+            float v = maxValue(state, -10000, +10000);           // infinty approximated by 1000 ....becoz..umm...ummm...just for fun..
 
             foreach (Boardposition successor in state.nextPosition)
             {
@@ -35,12 +38,27 @@ namespace ibagchaal
             if (state.boardModel.checkGameOver() != 0)
             {
                 if (state.boardModel.checkGameOver() == turn)
-                    state.Utility = 500;
-                else state.Utility = -500;
+                    state.Utility = 1000;
+                else state.Utility = -1000;
 
                 return state.Utility;
             }
             //check if state is in transposition table ..........if it is then return the evaluation funciton
+          /*  long key = ZobristKey.ComputeBoardZobristKey(state.boardModel.getboard());
+            int val = transTable.ProbeEntry(key, state.Depth, (int)alpha, (int)beta);
+            if (val != Int32.MaxValue)
+                return val;
+
+            if (state.Depth >= 3 && state.Depth < 5)
+            {
+                Random rand = new Random();
+                transTable.RecordEntry(key, state.Depth, (int)alpha, TransEntryType.Alpha);
+                transTable.RecordEntry(key, state.Depth, (int)beta, TransEntryType.Beta);
+                evaluationUtility.setBoardPosition(state);
+                transTable.RecordEntry(key, state.Depth, (int)evaluationUtility.evaluateBoard(), TransEntryType.Exact);
+
+            }
+            */
             state.findMoves();
             
             foreach (Boardposition succesor in state.nextPosition)
@@ -62,20 +80,34 @@ namespace ibagchaal
             if (state.boardModel.checkGameOver() != 0)
             {
                 if (state.boardModel.checkGameOver() == turn)
-                    state.Utility = 500;
-                else state.Utility = -500;
+                    state.Utility = 1000;
+                else state.Utility = -1000;
 
                 return state.Utility;
             }
 
             //check if state is in transposition table ..........if it is then return the evaluation funciton
+            /*long key = ZobristKey.ComputeBoardZobristKey(state.boardModel.getboard());
+            int val = transTable.ProbeEntry(key, state.Depth, (int)alpha, (int)beta);
+            if (val != Int32.MaxValue)
+                return val;
 
+            if (state.Depth >= 3 && state.Depth < 5)
+            {
+                Random rand = new Random();
+                transTable.RecordEntry(key, state.Depth, (int)alpha, TransEntryType.Alpha);
+                transTable.RecordEntry(key, state.Depth, (int)beta, TransEntryType.Beta);
+                evaluationUtility.setBoardPosition(state);
+                transTable.RecordEntry(key, state.Depth,(int) evaluationUtility.evaluateBoard(), TransEntryType.Exact);
+
+            }
+            */
             //check if the depth is 
            
             if (state.Depth >= 5)  //we will  work on this
             {
-                Random rand = new Random();
-                state.Utility= (float)rand.Next(500);
+                evaluationUtility.setBoardPosition(state);
+                state.Utility = evaluationUtility.evaluateBoard();
                 return state.Utility;
                 //we will return the value obtained from the evalution function
             }
@@ -90,9 +122,10 @@ namespace ibagchaal
             }
             return v;
         }
-
-            
-
+        private EvalutionUtility evaluationUtility;
+        private ZobristKey zobristKey;
+        private TransTable transTable;
+        private static int MAXENTRYHASH = 100;
         private Boardposition currentBoardPosition;
         private int turn;
     }

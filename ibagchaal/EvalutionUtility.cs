@@ -12,6 +12,10 @@ namespace ibagchaal
             p = pp;
         }
 
+        public void setBoardPosition(Boardposition pp)
+        {
+            p = pp;
+        }
         public float getNumberOfTigerBlocked()
         {
             Tiger[] t = p.getTigers();
