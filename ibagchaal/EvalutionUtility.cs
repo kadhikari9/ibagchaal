@@ -14,41 +14,43 @@ namespace ibagchaal
 
         public float getNumberOfTigerBlocked()
         {
-            Tiger[] t = p.getTigers;
+            Tiger[] t = p.getTigers();
             int count=0;
             for (int i = 0; i < t.Length; i++)
             {
-                if (t[i].isBlocked)
+                if (t[i].isBlocked(p.boardModel))
                 {
                     count++;
                 }
             }
-            float value = 4 * Math.Pow(count, 4) + count * count * count + 2 * count;
+            float v =(float)Math.Pow(count, 4);
+            float value = 4*v+ count * count * count + 2 * count;
             return value;
         }
         public  float noOfGoatsCaptured()
         {
             int c=p.boardModel.goatsCaptured;
-            float value = 20 * Math.Pow(c, c);
+            float value =(float)20 * Math.Pow(c, c);
             return value;
         }
 
         public  float noOfPosCheckedByTiger()
         {
-
+            return 0;
         }
         public  float noOfSafeMovesForGoat()
         {
+            return 0;
         }
         public float noOfGoatsOnCorner()
         {
             int c = 0;
             int[,] myboard = p.boardModel.getboard();
 
-            if (myboard[0][0] == 1) { c++; }
-            if (myboard[4][4] == 1) { c++; }
-            if (myboard[0][4] == 1) { c++; }
-            if (myboard[4][0] == 1) { c++; }
+            if (myboard[0,0] == 1) { c++; }
+            if (myboard[4,4] == 1) { c++; }
+            if (myboard[0,4] == 1) { c++; }
+            if (myboard[4,0] == 1) { c++; }
             return 25 * c;
            
         }
@@ -58,52 +60,53 @@ namespace ibagchaal
             int c = 0;
             int[,] myboard = p.boardModel.getboard();
 
-            if (myboard[0][0] == -1) { c++; }
-            if (myboard[4][4] == -1) { c++; }
-            if (myboard[0][4] == -1) { c++; }
-            if (myboard[4][0] == -1) { c++; }
+            if (myboard[0,0] == -1) { c++; }
+            if (myboard[4,4] == -1) { c++; }
+            if (myboard[0,4] == -1) { c++; }
+            if (myboard[4,0] == -1) { c++; }
             return 50 * c;
         }
 
         public  float noOfGoatsOnEdge()
         {
             int count=0;
-            int[,] myboard = p.boardModel.getboard;
+            int[,] myboard = p.boardModel.getboard();
             for(int i=0;i<5;i++)
             {
                 for (int j=0;j<5;j++)
                 {
                     if(i==0 || j==0) {
-                        if (myboard[i][j] == 1)
+                        if (myboard[i,j] == 1)
                             count++;
                     }
 
                 }
             }
-            return 15 * x;
+            return 15 * count;
         }
 
         public float noOfTigersOnEdge()
         {
             int count = 0;
-            int[,] myboard = p.boardModel.getboard;
+            int[,] myboard = p.boardModel.getboard();
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
                     if (i == 0 || j == 0)
                     {
-                        if (myboard[i][j] == 1)
+                        if (myboard[i,j] == 1)
                             count++;
                     }
 
                 }
             }
-            return 25 * x;
+            return 25 * count;
         }
 
         public  float emptyPointsSurroundedByGoats()
         {
+            return 0;
 
         }
 
@@ -115,7 +118,7 @@ namespace ibagchaal
 
         public float evaluateBoard()
         {
-
+            return 0;
         }
 
         private Boardposition p;
