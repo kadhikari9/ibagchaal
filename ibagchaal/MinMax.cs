@@ -91,13 +91,7 @@ namespace ibagchaal
             return v;
         }
 
-        public float evaluationFunction()
-        {
-            return 0;
-
-        }
-       
-       
+            
 
         private Boardposition currentBoardPosition;
         private int turn;
