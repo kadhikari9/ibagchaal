@@ -16,3 +16,11 @@ E:\KUSU\Projects\C sharp\IBagchaal\ibagchaal\obj\Debug\ibagchaal.exe
 E:\KUSU\Projects\C sharp\IBagchaal\ibagchaal\obj\Debug\ibagchaal.pdb
 C:\Users\Tsuman\Documents\Visual Studio 2008\Projects\Project1\trunk\ibagchaal\obj\Debug\ibagchaal.exe
 C:\Users\Tsuman\Documents\Visual Studio 2008\Projects\Project1\trunk\ibagchaal\obj\Debug\ibagchaal.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchal\ibagchaal\obj\Debug\ibagchaal.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchal\ibagchaal\obj\Debug\ibagchaal.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchal\ibagchaal\bin\Debug\ibagchaal.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchal\ibagchaal\bin\Debug\ibagchaal.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchal\ibagchaal\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchal\ibagchaal\obj\Debug\ibagchaal.Form1.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchal\ibagchaal\obj\Debug\ibagchaal.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\ibagchal\ibagchaal\obj\Debug\ibagchaal.csproj.GenerateResource.Cache
