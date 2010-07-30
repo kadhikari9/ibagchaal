@@ -33,6 +33,10 @@
             this.goatLeftLabel = new System.Windows.Forms.Label();
             this.goatCapturedLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.moveLabel = new System.Windows.Forms.Label();
+            this.turnLabel = new System.Windows.Forms.Label();
+            this.currentTurnLabel = new System.Windows.Forms.Label();
+            this.currentMoveLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // winnerLabel
@@ -72,7 +76,7 @@
             // 
             this.goatCapturedLabel.AutoSize = true;
             this.goatCapturedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.goatCapturedLabel.Location = new System.Drawing.Point(179, 44);
+            this.goatCapturedLabel.Location = new System.Drawing.Point(148, 44);
             this.goatCapturedLabel.Name = "goatCapturedLabel";
             this.goatCapturedLabel.Size = new System.Drawing.Size(51, 20);
             this.goatCapturedLabel.TabIndex = 3;
@@ -90,12 +94,57 @@
             this.label2.Text = "Goats Captured:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // moveLabel
+            // 
+            this.moveLabel.AutoSize = true;
+            this.moveLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moveLabel.Location = new System.Drawing.Point(17, 121);
+            this.moveLabel.Name = "moveLabel";
+            this.moveLabel.Size = new System.Drawing.Size(108, 20);
+            this.moveLabel.TabIndex = 5;
+            this.moveLabel.Text = "Current Move:";
+            // 
+            // turnLabel
+            // 
+            this.turnLabel.AutoSize = true;
+            this.turnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.turnLabel.Location = new System.Drawing.Point(17, 81);
+            this.turnLabel.Name = "turnLabel";
+            this.turnLabel.Size = new System.Drawing.Size(102, 20);
+            this.turnLabel.TabIndex = 6;
+            this.turnLabel.Text = "Current Turn:";
+            this.turnLabel.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // currentTurnLabel
+            // 
+            this.currentTurnLabel.AutoSize = true;
+            this.currentTurnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentTurnLabel.Location = new System.Drawing.Point(148, 81);
+            this.currentTurnLabel.Name = "currentTurnLabel";
+            this.currentTurnLabel.Size = new System.Drawing.Size(82, 20);
+            this.currentTurnLabel.TabIndex = 7;
+            this.currentTurnLabel.Text = "GOAT       ";
+            // 
+            // currentMoveLabel
+            // 
+            this.currentMoveLabel.AutoSize = true;
+            this.currentMoveLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentMoveLabel.Location = new System.Drawing.Point(148, 121);
+            this.currentMoveLabel.Name = "currentMoveLabel";
+            this.currentMoveLabel.Size = new System.Drawing.Size(89, 20);
+            this.currentMoveLabel.TabIndex = 8;
+            this.currentMoveLabel.Text = "                    ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1073, 549);
+            this.Controls.Add(this.currentMoveLabel);
+            this.Controls.Add(this.currentTurnLabel);
+            this.Controls.Add(this.turnLabel);
+            this.Controls.Add(this.moveLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.goatCapturedLabel);
             this.Controls.Add(this.goatLeftLabel);
@@ -103,6 +152,7 @@
             this.Controls.Add(this.winnerLabel);
             this.Name = "Form1";
             this.Text = "iBagChaal";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.ResumeLayout(false);
@@ -117,6 +167,10 @@
         private System.Windows.Forms.Label goatLeftLabel;
         private System.Windows.Forms.Label goatCapturedLabel;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label moveLabel;
+        private System.Windows.Forms.Label turnLabel;
+        private System.Windows.Forms.Label currentTurnLabel;
+        private System.Windows.Forms.Label currentMoveLabel;
 
 
     }

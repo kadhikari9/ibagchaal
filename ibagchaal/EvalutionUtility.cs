@@ -37,11 +37,16 @@ namespace ibagchaal
         public  float noOfGoatsCaptured()
         {
             int c=p.boardModel.goatsCaptured;
-            float value = 20 * (float)Math.Pow(c, c);
+            if (c == 0)
+                return 0;
+            float value = 100 * (float)Math.Pow(c, c)-100;
             if (value > 1000)
                 return -1000;
             else
-                return -value;
+            {
+                value = 0 - value;
+                return value;
+            }
         }
 
         public  float noOfPosCheckedByTiger()
@@ -101,7 +106,10 @@ namespace ibagchaal
             if (retvalue > 1000)
                 return -1000;
             else
-                return -retvalue;
+            {
+                retvalue = 0 - retvalue;
+                return retvalue;
+            }
         }
         /*
         public  float noOfSafeMovesForGoat() // think it is not needed
@@ -131,7 +139,7 @@ namespace ibagchaal
             if (myboard[4,4] == -1) { c++; }
             if (myboard[0,4] == -1) { c++; }
             if (myboard[4,0] == -1) { c++; }
-            return -100 * c;
+            return (-100) * c;
         }
 
         public  float noOfGoatsOnEdge()
