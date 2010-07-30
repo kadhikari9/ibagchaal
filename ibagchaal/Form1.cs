@@ -169,6 +169,7 @@ namespace ibagchaal
                 {
                     if (boardModel.returnPlayer() == BoardModel.TIGER)
                     {
+                        currentTurnLabel.Text = "TIGER";
                         if (state == PLACED)
                         {
                             if (boardModel.getTigerAt(cursorPosX, cursorPosY) != null)
@@ -185,21 +186,29 @@ namespace ibagchaal
 
                         else if (state == PICKED)
                         {
+                            int tx = selectedTiger.getXPos();
+                            int ty = selectedTiger.getYPos();
                             boardModel.moveTiger(selectedTiger, cursorPosX, cursorPosY);
+                            
                             state = PLACED;
                             this.Invalidate();
+                            currentMoveLabel.Text = "[" + tx+ "," + ty + "]" +
+                                " -> " + "[" + cursorPosX + "," + cursorPosY + "]";
                             AIPlayerI();
                         }
                     }
 
                     else if (boardModel.returnPlayer() == BoardModel.GOAT)
                     {
+                        currentTurnLabel.Text = "GOAT";
                         //work remaining here...a lot actually....
                         if (count < 20)
                         {
                             boardModel.placeGoat(cursorPosX, cursorPosY);
                             count++;
+                         
                             this.Invalidate();
+                            currentMoveLabel.Text = "Goat Placed " + "[" + cursorPosX + "," + cursorPosY + "]";
                             AIPlayerI();
                         }
                         else
@@ -210,6 +219,7 @@ namespace ibagchaal
                                 if (boardModel.getGoatAt(cursorPosX, cursorPosY) != null)
                                 {
                                     selectedGoat = boardModel.getGoatAt(cursorPosX, cursorPosY);
+                                    currentMoveLabel.Text = "Goat Selected " + "[" + cursorPosX + "," + cursorPosY + "]";
                                     state = PICKED;
                                     this.Invalidate();
                                 }
@@ -220,9 +230,14 @@ namespace ibagchaal
                             }
                             else if (state == PICKED)
                             {
+                                int tx = selectedGoat.getXPos();
+                                int ty = selectedGoat.getYPos();
                                 boardModel.moveGoat(selectedGoat, cursorPosX, cursorPosY);
                                 state = PLACED;
+                              
                                 this.Invalidate();
+                                currentMoveLabel.Text = "[" + tx + "," + ty + "]" +
+                             " -> " + "[" + cursorPosX + "," + cursorPosY + "]";
                                 AIPlayerI();
                                 
                             }
@@ -240,6 +255,16 @@ namespace ibagchaal
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
