@@ -1,0 +1,1 @@
+Bagchaal is one of the most popular game of Nepal. It is well known as 'Goats and Tigers'. This project implements the 'Baagchaal' game in which the players can play the game against the computer.
